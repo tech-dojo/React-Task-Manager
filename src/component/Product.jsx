@@ -1,11 +1,16 @@
 import React from 'react'
+var Firebase = require('firebase');
 class Product extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {};
     this.state.filterText = "";
-    this.state.PRODUCTS = [
+    this.state.filteredProducts = [];
+  //  this
+    this.state.PRODUCTS = [];
+
+  /*  this.state.PRODUCTS = [
       {
         id: 1,
         category: 'Sporting Goods',
@@ -43,9 +48,22 @@ class Product extends React.Component {
         qty: 23,
         name: 'Nexu 7'
       }
-    ];
+    ];*/
     //  this.handleProductTable = this.handleProductTable.bind(this);
 
+  }
+
+  componentWillMount() {
+    this.firebaseRef = new Firebase("https://crackling-inferno-7161.firebaseio.com/");
+  //  this.firebaseRef.set(this.state.PRODUCTS);
+    this.firebaseRef.on("value", function(dataSnapshot) {
+    //  this.state.PRODUCTS.push(dataSnapshot.val());
+    this.state.PRODUCTS = dataSnapshot.val();
+       this.setState(  this.state.PRODUCTS );
+      //  console.log("loading data ");
+      console.log(dataSnapshot.val());
+
+    }.bind(this));
   }
   handleProductTable(item) {
     var products = this.state.PRODUCTS;
@@ -60,25 +78,50 @@ class Product extends React.Component {
 
         }
       }
-    return product;
+      return product;
     });
     this.setState(newProducts);
+     this.firebaseRef.set(this.state.PRODUCTS);
     console.log(newProducts);
 
     //console.log(products);
     //  console.log(item);
 
   };
+  handleUserInput(filterText) {
+    this.setState({filterText: filterText});
+  };
   render() {
 
     return (
       <div>
         <h1>
-          <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} products={this.state.PRODUCTS}/>
+          <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)}/>
+          <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} products={this.state.PRODUCTS} filterText={this.state.filterText}/>
         </h1>
       </div>
     );
 
+  }
+
+}
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+
+  }
+  handleChange() {
+    this.props.onUserInput(this.refs.filterTextInput.value);
+  }
+  render() {
+    return (
+      <form>
+        <input type="text" placeholder="Search..." value={this.props.filterText} ref="filterTextInput" onChange={this.handleChange.bind(this)}/>
+
+      </form>
+
+    );
   }
 
 }
@@ -97,7 +140,7 @@ class ProductTable extends React.Component {
   }
   componentWillMount() {
 
-    console.log(this.props.onProductTableUpdate);
+    //  console.log(this.props.onProductTableUpdate);
   }
   onAddEvent(evt) {
     var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
@@ -115,6 +158,7 @@ class ProductTable extends React.Component {
 
   render() {
     var k = this.props.onProductTableUpdate;
+    var filterText = this.props.filterText;
     return (
       <div>
         <table className="table table-bordered">
@@ -129,6 +173,10 @@ class ProductTable extends React.Component {
           <tbody>
 
             {this.props.products.map(function(product) {
+              if (product.name.indexOf(filterText) === -1) {
+                return;
+              }
+
               return (<ProductRow product={product} key={product.id} onProductEdit={k.bind(this)}/>)
             })}
           </tbody>
