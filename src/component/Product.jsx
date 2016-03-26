@@ -81,7 +81,7 @@ class Product extends React.Component {
       return product;
     });
     this.setState(newProducts);
-     this.firebaseRef.set(this.state.PRODUCTS);
+     this.firebaseRef.set(newProducts);
     console.log(newProducts);
 
     //console.log(products);
@@ -148,7 +148,8 @@ class ProductTable extends React.Component {
       id: id,
       name: "",
       price: "",
-      qty: 0
+      qty: 0,
+      category:""
     }
     console.log("button clicket");
     this.props.products.push(product);
