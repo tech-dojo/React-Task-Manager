@@ -6,6 +6,7 @@ class Products extends React.Component {
 
     //  this.state.products = [];
     this.state = {};
+    this.state.filterText = "";
     this.state.products = [
       {
         id: 1,
@@ -47,13 +48,15 @@ class Products extends React.Component {
     ];
 
   }
-
+  handleUserInput(filterText) {
+    this.setState({filterText: filterText});
+  };
   render() {
 
     return (
       <div>
-        <SearchBar/>
-        <ProductTable products={this.state.products}/>
+        <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)}/>
+        <ProductTable products={this.state.products} filterText={this.state.filterText}/>
       </div>
     );
 
@@ -61,11 +64,16 @@ class Products extends React.Component {
 
 }
 class SearchBar extends React.Component {
-
+  handleChange() {
+    this.props.onUserInput(this.refs.filterTextInput.value);
+  }
   render() {
     return (
       <div>
-        <h2>The searchBar</h2>
+
+         <input type="text" placeholder="Search..." value={this.props.filterText} ref="filterTextInput" onChange={this.handleChange.bind(this)}/>
+
+
       </div>
 
     );
@@ -76,7 +84,11 @@ class SearchBar extends React.Component {
 class ProductTable extends React.Component {
 
   render() {
+     var filterText = this.props.filterText;
     var product = this.props.products.map(function(product) {
+      if (product.name.indexOf(filterText) === -1) {
+              return;
+            }
       return (<ProductRow product={product} key={product.id}/>)
     });
     return (
