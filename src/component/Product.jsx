@@ -7,10 +7,11 @@ class Product extends React.Component {
     this.state = {};
     this.state.filterText = "";
     this.state.filteredProducts = [];
-  //  this
+    //  this
+
     this.state.PRODUCTS = [];
 
-  /*  this.state.PRODUCTS = [
+    /*  this.state.PRODUCTS = [
       {
         id: 1,
         category: 'Sporting Goods',
@@ -55,11 +56,10 @@ class Product extends React.Component {
 
   componentWillMount() {
     this.firebaseRef = new Firebase("https://crackling-inferno-7161.firebaseio.com/");
-  //  this.firebaseRef.set(this.state.PRODUCTS);
+    //  this.firebaseRef.set(this.state.PRODUCTS);
     this.firebaseRef.on("value", function(dataSnapshot) {
-    //  this.state.PRODUCTS.push(dataSnapshot.val());
-    this.state.PRODUCTS = dataSnapshot.val();
-       this.setState(  this.state.PRODUCTS );
+
+      this.setState({PRODUCTS: dataSnapshot.val()});
       //  console.log("loading data ");
       console.log(dataSnapshot.val());
 
@@ -73,15 +73,15 @@ class Product extends React.Component {
         if (key == item.name && product.id == item.id) {
           //  console.log("inside mao");
           //   console.log(product);
-          product.id = item.id;
+      //    product.id = item.id;
           product[key] = item.value;
 
         }
       }
       return product;
     });
-    this.setState(newProducts);
-     this.firebaseRef.set(newProducts);
+    this.setState({PRODUCTS:newProducts});
+    this.firebaseRef.set(newProducts);
     console.log(newProducts);
 
     //console.log(products);
@@ -134,7 +134,7 @@ class ProductTable extends React.Component {
     this.state.products = {};
     //  this.state.
     this.onAddEvent = this.onAddEvent.bind(this);
-    this.state.products = this.props.products;
+  //  this.state.products = this.props.products;
     console.log(this.state.products);
     //  this.handleProductEdit = this.handleProductEdit.bind(this);
   }
@@ -149,7 +149,7 @@ class ProductTable extends React.Component {
       name: "",
       price: "",
       qty: 0,
-      category:""
+      category: ""
     }
     console.log("button clicket");
     this.props.products.push(product);
@@ -158,7 +158,7 @@ class ProductTable extends React.Component {
   }
 
   render() {
-    var k = this.props.onProductTableUpdate;
+    var onProductTableUpdate= this.props.onProductTableUpdate;
     var filterText = this.props.filterText;
     return (
       <div>
@@ -178,7 +178,7 @@ class ProductTable extends React.Component {
                 return;
               }
 
-              return (<ProductRow product={product} key={product.id} onProductEdit={k.bind(this)}/>)
+              return (<ProductRow product={product} key={product.id} onProductEdit={onProductTableUpdate.bind(this)}/>)
             })}
           </tbody>
 
@@ -195,9 +195,9 @@ class ProductRow extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
-    this.state.product = {};
-    this.state.product = this.props.product;
+  //  this.state = {};
+    //this.state.product = {};
+  //  this.state.product = this.props.product;
   }
   componentWillMount() {
     //  this.state.product = this.props.product;
@@ -261,6 +261,7 @@ class EditableCell extends React.Component {
   render() {
     return (
       <td>
+
         <input type='text' name={this.props.data.type} id={this.props.data.id} value={this.props.data.value} onChange={this.handleChange.bind(this)}/>
 
       </td>
