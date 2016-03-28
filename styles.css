@@ -13,10 +13,11 @@
 .eachRow:hover .del-cell{
   display: table-cell;
   vertical-align: middle;
+  visibility: visible;
 }
 .del-cell{
   width: 20px;
-  display: none;
+  visibility: hidden;
   text-align: center;
 }
 
