@@ -1,9 +1,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Product from './component/Product.jsx';
+import Products from './component/Products.jsx';
 
 
 
 
-ReactDOM.render(<Product} />, document.getElementById('root'));
+ReactDOM.render(<Products />, document.getElementById('root'));
