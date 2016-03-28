@@ -128,7 +128,7 @@ class ProductRow extends React.Component {
   render() {
 
     return (
-      <tr>
+      <tr className="eachRow">
         <EditableCell cellData={{
           "type": "name",
           value: this.props.product.name,
@@ -149,8 +149,8 @@ class ProductRow extends React.Component {
           value: this.props.product.category,
           id: this.props.product.id
         }}/>
-        <td>
-          <input type="button" onClick={this.onDelEvent.bind(this)} value="del"/>
+      <td className="del-cell">
+          <input type="button" onClick={this.onDelEvent.bind(this)} value="X" className="del-btn"/>
         </td>
       </tr>
     );
