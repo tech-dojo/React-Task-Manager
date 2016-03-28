@@ -139,7 +139,9 @@ class ProductTable extends React.Component {
     });
     return (
       <div>
-        <input type="button" onClick={this.props.onRowAdd} value="add"/>
+
+
+      <button type="button" onClick={this.props.onRowAdd} className="btn btn-success pull-right">Add</button>
         <table className="table table-bordered">
           <thead>
             <tr>
