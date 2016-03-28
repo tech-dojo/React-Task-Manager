@@ -51,12 +51,17 @@ class Products extends React.Component {
   handleUserInput(filterText) {
     this.setState({filterText: filterText});
   };
+  handleRowDel(product) {
+    var index = this.state.products.indexOf(product);
+    this.state.products.splice(index, 1);
+    this.setState(this.state.products);
+  };
   render() {
 
     return (
       <div>
         <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)}/>
-        <ProductTable products={this.state.products} filterText={this.state.filterText}/>
+        <ProductTable onRowDel={this.handleRowDel.bind(this)} products={this.state.products} filterText={this.state.filterText}/>
       </div>
     );
 
@@ -71,8 +76,7 @@ class SearchBar extends React.Component {
     return (
       <div>
 
-         <input type="text" placeholder="Search..." value={this.props.filterText} ref="filterTextInput" onChange={this.handleChange.bind(this)}/>
-
+        <input type="text" placeholder="Search..." value={this.props.filterText} ref="filterTextInput" onChange={this.handleChange.bind(this)}/>
 
       </div>
 
@@ -84,12 +88,13 @@ class SearchBar extends React.Component {
 class ProductTable extends React.Component {
 
   render() {
-     var filterText = this.props.filterText;
+    var rowDel = this.props.onRowDel;
+    var filterText = this.props.filterText;
     var product = this.props.products.map(function(product) {
       if (product.name.indexOf(filterText) === -1) {
-              return;
-            }
-      return (<ProductRow product={product} key={product.id}/>)
+        return;
+      }
+      return (<ProductRow product={product} onDelEvent={rowDel.bind(this)} key={product.id}/>)
     });
     return (
       <div>
@@ -103,7 +108,7 @@ class ProductTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-          { product}
+            {product}
 
           </tbody>
 
@@ -116,31 +121,37 @@ class ProductTable extends React.Component {
 }
 
 class ProductRow extends React.Component {
+  onDelEvent() {
+    this.props.onDelEvent(this.props.product);
 
+  }
   render() {
 
     return (
       <tr>
         <EditableCell cellData={{
-                "type": "name",
-                value: this.props.product.name,
-                id: this.props.product.id
-              }}/>
-            <EditableCell  cellData={{
-                type: "price",
-                value: this.props.product.price,
-                id: this.props.product.id
-              }}/>
-            <EditableCell  cellData={{
-                type: "qty",
-                value: this.props.product.qty,
-                id: this.props.product.id
-              }}/>
-            <EditableCell  cellData={{
-                type: "category",
-                value: this.props.product.category,
-                id: this.props.product.id
-              }}/>
+          "type": "name",
+          value: this.props.product.name,
+          id: this.props.product.id
+        }}/>
+        <EditableCell cellData={{
+          type: "price",
+          value: this.props.product.price,
+          id: this.props.product.id
+        }}/>
+        <EditableCell cellData={{
+          type: "qty",
+          value: this.props.product.qty,
+          id: this.props.product.id
+        }}/>
+        <EditableCell cellData={{
+          type: "category",
+          value: this.props.product.category,
+          id: this.props.product.id
+        }}/>
+        <td>
+          <input type="button" onClick={this.onDelEvent.bind(this)} value="del"/>
+        </td>
       </tr>
     );
 
