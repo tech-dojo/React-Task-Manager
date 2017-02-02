@@ -1,9 +1,15 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Products from './component/Products.jsx';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MyAwesomeReactComponent from './MyAwesomeReactComponent.js';
 
+const App = () => (
+  <MuiThemeProvider>
+    <MyAwesomeReactComponent />
+  </MuiThemeProvider>
+);
 
-
-
-ReactDOM.render(<Products />, document.getElementById('root'));
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
