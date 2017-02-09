@@ -23,6 +23,7 @@ export default class Model extends React.Component {
             open: !this.state.open
         })
     };
+    handleClose = () => this.setState({open: false});
 
     render() {
         return (
@@ -33,12 +34,12 @@ export default class Model extends React.Component {
                 <Drawer docked={false} width={300} open={this.state.open}
                   onRequestChange={(open) => this.setState({open})} >
                       <Link to="/employeeList">
-                        <MenuItem
+                        <MenuItem onTouchTap={this.handleClose}
                           className="menuItem">Employee</MenuItem>
                       </Link>
                       <Divider/>
                       <Link to="/taskList">
-                          <MenuItem
+                          <MenuItem onTouchTap={this.handleClose}
                             className="menuItem">Task</MenuItem>
                       </Link>
                 </Drawer>
