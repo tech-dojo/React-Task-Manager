@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import { Link  } from 'react-router';
-import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
@@ -13,7 +12,7 @@ import Avatar from 'material-ui/Avatar';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
 import { Flex, Grid } from 'reflexbox'
 import {blue600, blue500, red500, greenA200} from 'material-ui/styles/colors';
-import Dialog from 'material-ui/Dialog';
+import AddEmployee from './addEmployee.js';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
@@ -56,6 +55,32 @@ export default class EmployeeList extends React.Component {
   state = {
   open: false,
   };
+  var peopleList = [
+      {
+          id: 1,
+          name: "Steve Brown",
+          post: "Junior Programmer",
+          started: "Jan 7"
+      },
+      {
+          id: 2,
+          name: "Stephine Bell",
+          post: "Database Engineer",
+          started: "Jan 7"
+      },
+      {
+          id: 3,
+          name: "Anne Glory",
+          post: "Programmer",
+          started: "Jan 7"
+      },
+      {
+          id: 4,
+          name: "Sam Brown",
+          post: "IOS Programmer",
+          started: "Jan 7"
+      }
+  ];
 
   handleOpen = () => {
     this.setState({open: true});
@@ -66,84 +91,27 @@ export default class EmployeeList extends React.Component {
   };
 
   render(){
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-        />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleClose}
-        />,
-    ];
     return(
       <div>
         <div>
           <Grid col={6} px={2}>
-            <input type="text"/>
-            <IconButton>
-              <ActionSearch color={blue600}/>
-            </IconButton>
+              <TextField
+                hintText={
+                  <span>
+                    <ActionSearch style={styles.search}  color="rgb(158, 158, 158)"/>
+                    Search Employee
+                  </span>
+                }
+                hintStyle={{color: 'rgba(0, 0, 0, 0.41)'}}/>
           </Grid>
           <Grid col={6} px={2}>
-            <RaisedButton label="Add Employee" backgroundColor="#F48FB1" fullWidth={true} onTouchTap={this.handleOpen}/>
-              <Dialog
-                title="Enter Employee Details"
-                actions={actions}
-                modal={false}
-                open={this.state.open}
-                autoScrollBodyContent={true}
-                onRequestClose={this.handleClose}>
-                <TextField
-                  hintText="Full Name"
-                  /><br/>
-                  <TextField
-                    hintText="Position"
-                    /><br/>
-                    <TextField
-                      hintText="Comment"
-                      />
-              </Dialog>
+            <AddEmployee />
           </Grid>
         </div>
         <div>
           <SelectableList defaultValue={3}>
-          <List>
             <Subheader inset={true}>Employee List</Subheader>
-            <ListItem value={1}
-              leftAvatar={<Avatar icon={<SocialPerson />} backgroundColor={blue500} />}
-              rightIcon={<ActionSchedule />}
-              primaryText="Steve Brown"
-              secondaryText="Junior Programmer"
-              />
-          </List>
-            <List>
-              <ListItem value={2}
-                leftAvatar={<Avatar icon={<SocialPerson />} backgroundColor={blue500} />}
-                rightIcon={<ActionDone color={greenA200}/>}
-                primaryText="Stephine Bell"
-                secondaryText="Database Engineer"
-                />
-            </List>
-              <List>
-                <ListItem value={3}
-                  leftAvatar={<Avatar icon={<SocialPerson />} backgroundColor={blue500} />}
-                  rightIcon={<ActionSchedule />}
-                  primaryText="Anne Glory"
-                  secondaryText="Programmer"
-                  />
-              </List>
-                <List>
-                  <ListItem value={4}
-                    leftAvatar={<Avatar icon={<SocialPerson />} backgroundColor={blue500} />}
-                    rightIcon={<ActionDone color={greenA200}/>}
-                    primaryText="Sam Brown"
-                    secondaryText="IOS Programmer"
-                    />
-                  </List>
+              <listRender />
               </SelectableList>
             </div>
       </div>
@@ -151,3 +119,27 @@ export default class EmployeeList extends React.Component {
     )
   }
 };
+
+class listRender extends React.Component{
+  render(){
+    var listItems = this.state.peopleList.map((n) =>
+        <ListItem key={n.id}
+                value={n.name} />
+    );
+    return (
+      <List>
+        {listItems}
+      </List>
+    )
+  }
+};
+
+
+var styles={
+  search: {
+    margin: "100px 10px 0px 10px",
+  }
+}
+//
+// value={this.state.searchString}
+// onChange={this._handleSearch.bind(this)}
