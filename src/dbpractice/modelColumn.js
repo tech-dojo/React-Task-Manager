@@ -18,11 +18,15 @@ var Employee = sequelize.define('employee', {
       this.setDataValue('title', val.toUpperCase());
     }
   }
+}
+,
+{ timestamps: false,
 });
 
-Employee
-  .create({ name: 'John Doe', title: 'senior engineer' })
-  .then(function(employee) {
+Employee.sync({force: true}).then(function () {
+  return Employee.create({ name: 'John Doe', title: 'senior engineer'
+  });
+}).then(function(employee) {
     console.log(employee.get('name')); // John Doe (SENIOR ENGINEER)
     console.log(employee.get('title')); // SENIOR ENGINEER
-  })
+})
