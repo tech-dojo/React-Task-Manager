@@ -53,7 +53,7 @@ function wrapState(ComposedComponent) {
 SelectableList = wrapState(SelectableList);
 export default class EmployeeList extends React.Component {
   state = {
-  open: false,
+    open: false,
   };
   var peopleList = [
       {

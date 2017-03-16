@@ -1,14 +1,13 @@
-
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
-var User = sequelize.define('user', {
+var Programmer = sequelize.define('programmer', {
   firstName: {
     type: Sequelize.STRING
   },
   lastName: {
     type: Sequelize.STRING
   },
-  Positions: {
+  JobTitle: {
     type: Sequelize.STRING
   },
 },
@@ -16,16 +15,16 @@ var User = sequelize.define('user', {
 });
 
 // force: true will drop the table if it already exists
-User.sync({force: true}).then(function () {
+Programmer.sync({force: true}).then(function () {
   // Table created
-  return User.create({
-    firstName: 'John',
-    lastName: 'Hancock',
-    Positions: 'Manager',
+  return Programmer.create({
+    firstName: 'Felix',
+    lastName: 'Stewart',
+    JobTitle: 'Senior Programmer',
 
   });
 }).then(function (){
-  User.findAll().then(function(users) {
-    console.log(users)
+  Programmer.findAll().then(function(programmers) {
+    console.log(programmers)
   })
 });
