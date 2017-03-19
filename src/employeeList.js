@@ -55,32 +55,32 @@ export default class EmployeeList extends React.Component {
   state = {
     open: false,
   };
-  var peopleList = [
-      {
-          id: 1,
-          name: "Steve Brown",
-          post: "Junior Programmer",
-          started: "Jan 7"
-      },
-      {
-          id: 2,
-          name: "Stephine Bell",
-          post: "Database Engineer",
-          started: "Jan 7"
-      },
-      {
-          id: 3,
-          name: "Anne Glory",
-          post: "Programmer",
-          started: "Jan 7"
-      },
-      {
-          id: 4,
-          name: "Sam Brown",
-          post: "IOS Programmer",
-          started: "Jan 7"
-      }
-  ];
+  // var peopleList = [
+  //     {
+  //         id: 1,
+  //         name: "Steve Brown",
+  //         post: "Junior Programmer",
+  //         started: "Jan 7"
+  //     },
+  //     {
+  //         id: 2,
+  //         name: "Stephine Bell",
+  //         post: "Database Engineer",
+  //         started: "Jan 7"
+  //     },
+  //     {
+  //         id: 3,
+  //         name: "Anne Glory",
+  //         post: "Programmer",
+  //         started: "Jan 7"
+  //     },
+  //     {
+  //         id: 4,
+  //         name: "Sam Brown",
+  //         post: "IOS Programmer",
+  //         started: "Jan 7"
+  //     }
+  // ];
 
   handleOpen = () => {
     this.setState({open: true});

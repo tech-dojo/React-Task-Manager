@@ -5,13 +5,13 @@ var User = sequelize.define('user', {
     type: Sequelize.BIGINT,
     primaryKey: true
   },
-  username: {
+  user_Name: {
     type: Sequelize.STRING
   },
-  firstName: {
+  First_Name: {
     type: Sequelize.STRING
   },
-  lastName: {
+  Last_Name: {
     type: Sequelize.STRING
   },
   Positions: {
@@ -22,15 +22,15 @@ var User = sequelize.define('user', {
 });
 
 // force: true will drop the table if it already exists
-User.sync({force: false}).then(function () {
+User.sync({force: true}).then(function () {
   User.create({
    id: new Date().valueOf(),
-   username: 'john34',
-   firstName: 'John',
-   lastName: 'Hancock',
+   user_Name: 'john34',
+   First_Name: 'John',
+   Last_Name: 'Hancock',
    Positions: 'Manager',
  }).then(function (){
-   User.findOne({ where: {username:'john34'} }).then(function(users) {
+   User.findOne({ where: {user_Name:'john34'} }).then(function(users) {
      Task.sync({force: false}).then(function () {
        // Table created
        return Task.create({

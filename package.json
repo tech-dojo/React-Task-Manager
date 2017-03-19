@@ -32,6 +32,7 @@
     "webpack-dev-server": "^1.16.3"
   },
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.14.1",
     "grunt-cli": "^1.2.0",
     "iconfonts": "^0.10.0",
