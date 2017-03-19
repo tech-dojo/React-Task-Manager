@@ -1,6 +1,10 @@
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
 var User = sequelize.define('user', {
+  id: {
+    type: Sequelize.BIGINT,
+    primaryKey: true
+  },
   username: {
     type: Sequelize.STRING
   },
@@ -18,28 +22,30 @@ var User = sequelize.define('user', {
 });
 
 // force: true will drop the table if it already exists
-User.sync({force: true}).then(function () {
+User.sync({force: false}).then(function () {
+  User.create({
+   id: new Date().valueOf(),
+   username: 'john34',
+   firstName: 'John',
+   lastName: 'Hancock',
+   Positions: 'Manager',
+ }).then(function (){
+   User.findOne({ where: {username:'john34'} }).then(function(users) {
+     Task.sync({force: false}).then(function () {
+       // Table created
+       return Task.create({
+         Created_By: users.id,
+         Task_Name: 'IOS interface',
+         Created_On: '2016-08-09 04:05:02',
+         Assigned_To: 'Sam Smith'
+       });
+     })
+   })
+ })
   // Table created
-  return User.create({
-    username: 'john34',
-    firstName: 'John',
-    lastName: 'Hancock',
-    Positions: 'Manager',
 
-  });
-}).then(function (){
-  User.findOne({ where: {username:'john34'} }).then(function(users) {
-    Task.sync({force: true}).then(function () {
-      // Table created
-      return Task.create({
-        Created_By: 1,
-        Task_Name: 'IOS interface',
-        Created_On: '2016-08-09 04:05:02',
-        Assigned_To: 'Sam Smith'
-      });
-    })
-  })
 });
+
 
 
 
@@ -51,7 +57,7 @@ User.sync({force: true}).then(function () {
 //tasks
 var Task = sequelize.define('task', {
   Created_By: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT,
   },
   Task_Name: {
     type: Sequelize.STRING
@@ -82,3 +88,26 @@ User.hasMany(Task, {
     name: 'Created_By'
   }
 });
+
+
+/*
+,
+{
+  username: 'henry40',
+  firstName: 'Henry',
+  lastName: 'Trumann',
+  Positions: 'IOS Programmer',
+},
+{
+  username: 'sam77',
+  firstName: 'Samuel',
+  lastName: 'Holt',
+  Positions: 'Junior Programmer',
+},
+{
+  username: 'sandy34',
+  firstName: 'Snady',
+  lastName: 'Brown',
+  Positions: 'Web Programmer',
+}
+*/
