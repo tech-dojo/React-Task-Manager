@@ -9,7 +9,8 @@ var Task = sequelize.define('task', {
   },
   Created_On: {
     type: Sequelize.DATE,
-    allowNull: true
+    allowNull: false,
+    defaultValue: Sequelize.NOW
   },
   Started_On: {
     type: Sequelize.DATE,
@@ -32,7 +33,6 @@ Task.sync({force: true}).then(function () {
   return Task.create({
     Created_By: 'Fred Hancock',
     Task_Name: 'IOS interface',
-    Created_On: '2016-08-09 04:05:02',
     Assigned_To: 'Sam Smith'
   });
 }).then(function (){

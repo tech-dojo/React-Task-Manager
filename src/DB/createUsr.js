@@ -14,7 +14,8 @@ var User = sequelize.define('user', {
     primaryKey: true
   },
   user_Name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    unique: true
   },
   First_Name: {
     type: Sequelize.STRING
@@ -22,7 +23,7 @@ var User = sequelize.define('user', {
   Last_Name: {
     type: Sequelize.STRING
   },
-  Positions: {
+  User_Type: {
     type: Sequelize.STRING
   },
 },
@@ -32,14 +33,18 @@ var User = sequelize.define('user', {
 
 var Task = sequelize.define('task', {
   Created_By: {
-    type: Sequelize.BIGINT,
+    type: Sequelize.BIGINT
   },
   Task_Name: {
     type: Sequelize.STRING
   },
   Created_On: {
     type: Sequelize.DATE,
-    allowNull: true
+    allowNull: true,
+    defaultValue: Sequelize.NOW
+  },
+  Assigned_To: {
+    type: Sequelize.STRING
   },
   Started_On: {
     type: Sequelize.DATE,
@@ -49,9 +54,6 @@ var Task = sequelize.define('task', {
     type: Sequelize.DATE,
     allowNull: true
   },
-  Assigned_To: {
-    type: Sequelize.STRING
-  },
 },
 { timestamps: false,
 });
@@ -60,25 +62,98 @@ var Task = sequelize.define('task', {
 //
 //   res.json({name:"john",id:1});
 // });
+// User.findById(id).then(function(user) {
+//   if(user){
+//     user.updateAttributes({
+//       user_Name: req.body.user_Name,
+//       First_Name: req.body.First_Name,
+//       Last_Name: req.body.Last_Name,
+//       User_Type: req.body.User_Type
+//     }).then(function(){
+//       res.send(user);
+//     });
+//   }
+// })
+
+
+
 app.post('/api/user/create', function(req, res) {
   User.create({
    id: new Date().valueOf(),
    user_Name: req.body.user_Name,
    First_Name: req.body.First_Name,
    Last_Name: req.body.Last_Name,
-   Positions: req.body.Positions
- }).then(function (){
-   User.findOne({ where: {user_Name:'henru34'} }).then(function(users) {
-       Task.create({
-         Created_By: users.id,
-         Task_Name: req.body.Task_Name,
-         Created_On: req.body.Created_On,
-         Assigned_To: req.body.Assigned_To
-       });
-     })
-   })
+   User_Type: req.body.User_Type
+ })
     res.send("yes");
 });
+
+app.get('/api/user/all', function(req, res) {
+  User.findAll().then(function(user){
+    res.json(user);
+  })
+});
+
+app.get('/api/user/:ID', function(req, res) {
+
+  var id = req.params.ID;
+
+  User.findById(id).then(function(user){
+    res.json(user);
+  })
+});
+
+app.get('/api/programmer', function(req, res) {
+    User.findAll({
+        where: {
+            User_Type:"Programmer"
+        }
+    }).then(function(user) {
+        res.json(user);
+    })
+});
+
+
+app.post('/api/task/create', function(req, res){
+      Task.create({
+        Created_By: req.body.Created_By,
+        Task_Name: req.body.Task_Name,
+        Assigned_To: req.body.Assigned_To
+      })
+      res.send("yes");
+});
+
+app.get('/api/task/all', function(req, res) {
+  Task.findAll().then(function(task){
+    res.json(task);
+  })
+});
+
+
+
+
+app.put('/api/user/update/:ID', function(req, res) {
+  var uid = req.params.ID;
+  console.log(req.body.User_Type);
+
+
+  User.update(
+    { user_Name: req.body.user_Name,
+      First_Name: req.body.First_Name,
+      Last_Name: req.body.Last_Name,
+      User_Type: req.body.User_Type
+     },
+    { where: { id: uid }
+  }).then(function(user){
+    console.log(user);
+
+  }).catch(function(e) {
+    console.log("Project update failed !");
+});
+
+  res.send("yes");
+});
+
 
 User.sync({force: false});
 Task.sync({force: false});
