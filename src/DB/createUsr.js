@@ -32,6 +32,10 @@ var User = sequelize.define('user', {
 });
 
 var Task = sequelize.define('task', {
+  task_id: {
+    type: Sequelize.BIGINT,
+    primaryKey: true
+  },
   Created_By: {
     type: Sequelize.BIGINT
   },
@@ -116,6 +120,7 @@ app.get('/api/programmer', function(req, res) {
 
 app.post('/api/task/create', function(req, res){
       Task.create({
+        task_id:new Date().valueOf(),
         Created_By: req.body.Created_By,
         Task_Name: req.body.Task_Name,
         Assigned_To: req.body.Assigned_To
@@ -129,7 +134,14 @@ app.get('/api/task/all', function(req, res) {
   })
 });
 
+app.get('/api/task/TaskID/:t_ID', function(req, res) {
 
+  var id = req.params.t_ID;
+
+  Task.findById(id).then(function(task){
+    res.json(task);
+  })
+});
 
 
 app.put('/api/user/update/:ID', function(req, res) {
