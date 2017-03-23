@@ -1,14 +1,15 @@
 var path = require('path');
 var webpack = require('webpack');
+var BUILD_DIR = path.resolve(__dirname, './dist');
 
 module.exports = {
   devtool: 'eval',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000', 'webpack/hot/only-dev-server', './src/index'
+    'webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server', './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    path: BUILD_DIR ,
+    filename: 'rmgbund.js',
     publicPath: '/static/'
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],

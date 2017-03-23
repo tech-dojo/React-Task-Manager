@@ -2,12 +2,13 @@ var express = require('express');
 var Sequelize = require('sequelize');
 var app = express();
 var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
+var cors = require('cors')
 
 var bodyparser = require('body-parser');
 
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
-
+app.use(cors());
 var User = sequelize.define('user', {
   id: {
     type: Sequelize.BIGINT,
@@ -79,7 +80,7 @@ var Task = sequelize.define('task', {
 //   }
 // })
 
-
+//app.use(express.static('public'))
 
 app.post('/api/user/create', function(req, res) {
   User.create({
