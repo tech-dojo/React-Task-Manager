@@ -14,17 +14,17 @@ var User = sequelize.define('user', {
     type: Sequelize.BIGINT,
     primaryKey: true
   },
-  user_Name: {
+  user_name: {
     type: Sequelize.STRING,
     unique: true
   },
-  First_Name: {
+  first_name: {
     type: Sequelize.STRING
   },
-  Last_Name: {
+  last_name: {
     type: Sequelize.STRING
   },
-  User_Type: {
+  user_type: {
     type: Sequelize.STRING
   },
 },
@@ -83,12 +83,13 @@ var Task = sequelize.define('task', {
 //app.use(express.static('public'))
 
 app.post('/api/user/create', function(req, res) {
+  console.log(req.body);
   User.create({
    id: new Date().valueOf(),
-   user_Name: req.body.user_Name,
-   First_Name: req.body.First_Name,
-   Last_Name: req.body.Last_Name,
-   User_Type: req.body.User_Type
+   user_name: req.body.user_name,
+   first_name: req.body.first_name,
+   last_name: req.body.last_Name,
+   user_type: req.body.user_type
  })
     res.send("yes");
 });
