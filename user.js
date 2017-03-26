@@ -18,11 +18,8 @@ var User = sequelize.define('user', {
     type: Sequelize.STRING,
     unique: true
   },
-  first_name: {
-    type: Sequelize.STRING
-  },
-  last_name: {
-    type: Sequelize.STRING
+  password: {
+    type: Sequelize.STRING,
   },
   user_type: {
     type: Sequelize.STRING
@@ -87,8 +84,7 @@ app.post('/api/user/create', function(req, res) {
   User.create({
    id: new Date().valueOf(),
    user_name: req.body.user_name,
-   first_name: req.body.first_name,
-   last_name: req.body.last_Name,
+   password: req.body.password,
    user_type: req.body.user_type
  })
     res.send("yes");
