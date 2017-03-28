@@ -1,7 +1,8 @@
 import React from 'react';
-import Model from './Model.js'
-import EmployeeList from './employeeList.js';
-import TaskList from './taskList.js';
+import ManagerModel from './managerModel.js'
+import ProgrammerModel from './programmerModel.js'
+import ProgrammerList from './component/employee/programmerList.js';
+import TaskList from './component/task/taskList.js';
 import { Link, browserHistory } from 'react-router';
 import { Router, Route, IndexRoute } from 'react-router';
 

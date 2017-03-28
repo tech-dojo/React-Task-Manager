@@ -12,7 +12,7 @@ import Menu from 'material-ui/Menu';
 import { Link } from 'react-router';
 
 
-export default class Model extends React.Component {
+export default class ProgrammerModel extends React.Component {
 
     constructor(props) {
         super(props);
@@ -30,17 +30,19 @@ export default class Model extends React.Component {
             <div>
                 <AppBar title={< span style = {styles.title} > PROJECT MANAGEMENT < /span>}
                   onLeftIconButtonTouchTap={this.handleToggle}
-                  iconElementRight={< FlatButton label = "Login/ Register" />}/>
+                  iconElementRight={
+                    <Link to="/userSignin">
+                      < FlatButton label = "Login" />
+                    </Link>}/>
                 <Drawer docked={false} width={300} open={this.state.open}
                   onRequestChange={(open) => this.setState({open})} >
-                      <Link to="/employeeList">
-                        <MenuItem onTouchTap={this.handleClose}
-                          className="menuItem">Employee</MenuItem>
-                      </Link>
-                      <Divider/>
                       <Link to="/taskList">
                           <MenuItem onTouchTap={this.handleClose}
                             className="menuItem">Task</MenuItem>
+                      </Link>
+                      <Link to="/userSignin">
+                          <MenuItem onTouchTap={this.handleClose}
+                            className="menuItem">Sign Out</MenuItem>
                       </Link>
                 </Drawer>
                 { this.props.children }

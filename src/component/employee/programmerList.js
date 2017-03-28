@@ -12,7 +12,6 @@ import Avatar from 'material-ui/Avatar';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
 import { Flex, Grid } from 'reflexbox'
 import {blue600, blue500, red500, greenA200} from 'material-ui/styles/colors';
-import AddEmployee from './addEmployee.js';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
@@ -51,7 +50,7 @@ function wrapState(ComposedComponent) {
 }
 
 SelectableList = wrapState(SelectableList);
-export default class EmployeeList extends React.Component {
+export default class ProgrammerList extends React.Component {
   state = {
     open: false,
   };
@@ -104,9 +103,7 @@ export default class EmployeeList extends React.Component {
                 }
                 hintStyle={{color: 'rgba(0, 0, 0, 0.41)'}}/>
           </Grid>
-          <Grid col={6} px={2}>
-            <AddEmployee />
-          </Grid>
+
         </div>
         <div>
           <SelectableList defaultValue={3}>

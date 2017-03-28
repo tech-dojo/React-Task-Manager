@@ -3,8 +3,10 @@ var Sequelize = require('sequelize');
 var app = express();
 var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
 var cors = require('cors')
-
 var bodyparser = require('body-parser');
+
+
+//  pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
@@ -89,6 +91,22 @@ app.post('/api/user/create', function(req, res) {
  })
     res.send("yes");
 });
+
+app.post('/api/user/signin', function(req, res) {
+    console.log(req.body);
+    User.findOne({
+        where: {
+            user_name: req.body.user_name
+        }
+    }).then(function(user) {
+            if (req.body.password === user.password) {
+                res.json(user)
+            } else {
+                res.send("Mismatch")
+            }
+    })
+});
+
 
 app.get('/api/user/all', function(req, res) {
   User.findAll().then(function(user){
