@@ -7,6 +7,7 @@ var bodyparser = require('body-parser');
 
 
 //  pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+//  pg_ctl -D /usr/local/var/postgres stop -s -m fast
 
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
@@ -36,27 +37,30 @@ var Task = sequelize.define('task', {
     type: Sequelize.BIGINT,
     primaryKey: true
   },
-  Created_By: {
-    type: Sequelize.BIGINT
-  },
-  Task_Name: {
+  created_by: {
     type: Sequelize.STRING
   },
-  Created_On: {
+  task_name: {
+    type: Sequelize.STRING
+  },
+  created_on: {
     type: Sequelize.DATE,
-    allowNull: true,
-    defaultValue: Sequelize.NOW
+    defaultValue: Sequelize.NOW,
   },
-  Assigned_To: {
+  assigned_to: {
     type: Sequelize.STRING
   },
-  Started_On: {
+  started_on: {
     type: Sequelize.DATE,
     allowNull: true
   },
-  Completed_On: {
+  completed_on: {
     type: Sequelize.DATE,
     allowNull: true
+  },
+  estimated_time: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
 },
 { timestamps: false,
@@ -104,6 +108,8 @@ app.post('/api/user/signin', function(req, res) {
             } else {
                 res.send("Mismatch")
             }
+    }).catch(function(error) {
+        console.log("Mismatch");
     })
 });
 
@@ -137,9 +143,10 @@ app.get('/api/programmer', function(req, res) {
 app.post('/api/task/create', function(req, res){
       Task.create({
         task_id:new Date().valueOf(),
-        Created_By: req.body.Created_By,
-        Task_Name: req.body.Task_Name,
-        Assigned_To: req.body.Assigned_To
+        created_by: req.body.created_by,
+        task_name: req.body.task_name,
+        assigned_to: req.body.assigned_to,
+        estimated_time: req.body.estimated_time,
       })
       res.send("yes");
 });
@@ -184,6 +191,6 @@ app.put('/api/user/update/:ID', function(req, res) {
 
 
 User.sync({force: false});
-Task.sync({force: false});
+Task.sync({force: true});
 
-app.listen(3000);
+app.listen(3080);

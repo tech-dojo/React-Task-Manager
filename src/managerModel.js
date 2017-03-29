@@ -31,21 +31,21 @@ export default class ManagerModel extends React.Component {
                 <AppBar title={< span style = {styles.title} > PROJECT MANAGEMENT < /span>}
                   onLeftIconButtonTouchTap={this.handleToggle}
                   iconElementRight={
-                    <Link to="/managerModel/userSignin">
+                    <Link to="/userSignin">
                       < FlatButton label = "Login" />
                     </Link>}/>
                 <Drawer docked={false} width={300} open={this.state.open}
                   onRequestChange={(open) => this.setState({open})} >
-                      <Link to="/managerModel/programmerList">
+                      <Link to="/programmerList">
                         <MenuItem onTouchTap={this.handleClose}
                           className="menuItem">Programmer</MenuItem>
                       </Link>
                       <Divider/>
-                      <Link to="/managerModel/taskList">
+                      <Link to="/taskList">
                           <MenuItem onTouchTap={this.handleClose}
                             className="menuItem">Task</MenuItem>
                       </Link>
-                      <Link to="/managerModel/userSignin">
+                      <Link to="/userSignin">
                           <MenuItem onTouchTap={this.handleClose}
                             className="menuItem">Sign Out</MenuItem>
                       </Link>

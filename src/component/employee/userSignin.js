@@ -44,7 +44,7 @@ export default class UserSignIn extends React.Component {
     handleSubmit(event) {
         console.log(this.state);
         this.userData[event.target] = null;
-          axios.post('http://localhost:3000/api/user/signin', {
+          axios.post('http://localhost:3080/api/user/signin', {
               user_name: this.state.user_name,
               password: this.state.password,
           }).then(function(response) {
@@ -57,6 +57,11 @@ export default class UserSignIn extends React.Component {
             }else{
               console.log("User Name or Password Mismatch");
             }
+            var localStore={'user_name':response.data.user_name, 'user_type':response.data.user_type};
+            localStorage.setItem('localStore', JSON.stringify(localStore))
+
+            var retrievUser = JSON.parse(localStorage.getItem('localStore'));
+            console.log('retrievUser: ', retrievUser);
 
           }).catch(function(error) {
               console.log(error);

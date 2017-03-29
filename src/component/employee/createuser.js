@@ -71,7 +71,7 @@ export default class CreateUser extends React.Component {
     handleSubmit(event) {
         console.log(this.userData);
         this.userData[event.target] = null;
-        axios.post('http://localhost:3000/api/user/create', {
+        axios.post('http://localhost:3080/api/user/create', {
             user_name: this.state.user_name,
             password: this.state.password,
             user_type: this.state.user_type
