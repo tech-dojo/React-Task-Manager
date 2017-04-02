@@ -59,7 +59,7 @@ var Task = sequelize.define('task', {
     allowNull: true
   },
   estimated_time: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false
   },
 },
@@ -132,7 +132,7 @@ app.get('/api/user/:ID', function(req, res) {
 app.get('/api/programmer', function(req, res) {
     User.findAll({
         where: {
-            User_Type:"Programmer"
+            user_type:"Programmer"
         }
     }).then(function(user) {
         res.json(user);
@@ -141,6 +141,7 @@ app.get('/api/programmer', function(req, res) {
 
 
 app.post('/api/task/create', function(req, res){
+  console.log(req.body);
       Task.create({
         task_id:new Date().valueOf(),
         created_by: req.body.created_by,
@@ -148,7 +149,7 @@ app.post('/api/task/create', function(req, res){
         assigned_to: req.body.assigned_to,
         estimated_time: req.body.estimated_time,
       })
-      res.send("yes");
+      res.json({ok:"true"});
 });
 
 app.get('/api/task/all', function(req, res) {
@@ -169,14 +170,14 @@ app.get('/api/task/TaskID/:t_ID', function(req, res) {
 
 app.put('/api/user/update/:ID', function(req, res) {
   var uid = req.params.ID;
-  console.log(req.body.User_Type);
+  console.log(req.body.user_type);
 
 
   User.update(
-    { user_Name: req.body.user_Name,
-      First_Name: req.body.First_Name,
-      Last_Name: req.body.Last_Name,
-      User_Type: req.body.User_Type
+    { user_name: req.body.user_Name,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      user_type: req.body.user_type
      },
     { where: { id: uid }
   }).then(function(user){

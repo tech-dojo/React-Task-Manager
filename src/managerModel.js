@@ -10,6 +10,7 @@ import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import Menu from 'material-ui/Menu';
 import { Link } from 'react-router';
+import axios from 'axios';
 
 
 export default class ManagerModel extends React.Component {
@@ -25,6 +26,28 @@ export default class ManagerModel extends React.Component {
     };
     handleClose = () => this.setState({open: false});
 
+    handleProgrammer = () =>{
+      this.setState({open: false,
+      });
+      axios.get('http://localhost:3080/api/programmer').then(function(response) {
+        // this.programmerList=response;
+        console.log(response.data);
+      }).catch(function(error) {
+          console.log(error);
+      })
+    }
+
+    handleTask = () =>{
+      this.setState({open: false,
+      });
+      axios.get('http://localhost:3080/api/task/all').then(function(response) {
+        // this.programmerList=response;
+        console.log(response.data);
+      }).catch(function(error) {
+          console.log(error);
+      })
+    }
+
     render() {
         return (
             <div>
@@ -37,12 +60,12 @@ export default class ManagerModel extends React.Component {
                 <Drawer docked={false} width={300} open={this.state.open}
                   onRequestChange={(open) => this.setState({open})} >
                       <Link to="/programmerList">
-                        <MenuItem onTouchTap={this.handleClose}
+                        <MenuItem onTouchTap={this.handleProgrammer}
                           className="menuItem">Programmer</MenuItem>
                       </Link>
                       <Divider/>
                       <Link to="/taskList">
-                          <MenuItem onTouchTap={this.handleClose}
+                          <MenuItem onTouchTap={this.handleTask}
                             className="menuItem">Task</MenuItem>
                       </Link>
                       <Link to="/userSignin">
@@ -57,6 +80,7 @@ export default class ManagerModel extends React.Component {
         );
     }
 };
+
 
 
 

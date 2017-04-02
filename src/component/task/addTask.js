@@ -1,6 +1,8 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
@@ -8,115 +10,146 @@ import axios from 'axios';
 
 var retrievUser = JSON.parse(localStorage.getItem('localStore'))
 
-export default class AddTask extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      created_on: null,
-      due_date : null
-    };
-    this.state.open = false;
-    this.userData = {};
-    this.state.disable = true;
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export default class AddTask extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          programmerList  :[],
+          userData : {},
+          open:false,
+          task : {
+            programmerSelected:"",
+            task_name: "",
+            estimated_time: ""
 
-  handleChange(event) {
-      this.userData[event.target.name] = event.target.value;
-      if (this.userData.task_name=="" || this.userData.task_name==undefined
-        || this.userData.assigned_to == "" || this.userData.assigned_to == undefined
-        || this.userData.estimated_time == "" || this.userData.estimated_time == undefined) {
-          this.userData['disable'] = true;
-      } else {
-          this.userData['disable'] = false;
-      }
+          }
+        };
+        this.task = {};
+        console.log(this.state);
+      //  this.state.open = false;
+        this.userData = {};
+        this.userData.programmerList = [];
+        this.state.disable = true;
+      //  this.state.programmerList = [];
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeForSelect = this.handleChangeForSelect.bind(this);
+    }
 
-      console.log(this.userData);
-      this.setState(this.userData);
-  }
-  //
-  // isConfirmedPassword(event) {
-  //   return (event.target.value === this.state.password)
-  // }
-  handleSubmit(event) {
-      console.log(this.state);
-      this.userData[event.target] = null;
-        axios.post('http://localhost:3080/api/task/create', {
-            created_by: retrievUser.user_name,
-            task_name: this.state.task_name,
-            assigned_to: this.state.assigned_to,
-            estimated_time: this.state.estimated_time,
-        }).then(function(response) {
-          console.log(response);
+    handleChange(event) {
+        this.task[event.target.name] = event.target.value;
+        // if (this.userData.task_name == "" || this.userData.task_name == undefined
+        // || this.userData.assigned_to == "" || this.userData.assigned_to == undefined
+        // || this.userData.estimated_time == "" || this.userData.estimated_time == undefined) {
+        //     this.userData['disable'] = true;
+        // } else {
+        //     this.userData['disable'] = false;
+        // }
+
+      //  console.log(this.userData);
+        this.setState({
+          task : this.task
+        });
+    }
+    //
+    // isConfirmedPassword(event) {
+    //   return (event.target.value === this.state.password)
+    // }
+    handleSubmit(event) {
+        console.log(this.state);
+        this.userData[event.target] = null;
+        var userData = {
+          created_by: retrievUser.user_name,
+          task_name: this.state.task.task_name,
+          assigned_to: this.state.task.programmerSelected,
+          estimated_time: this.state.task.estimated_time
+
+        }
+        console.log(userData);
+        axios.post('http://localhost:3080/api/task/create',userData).then(function(response) {
+            console.log(response.data);
         }).catch(function(error) {
             console.log(error);
         })
-  }
+        this.setState({open: false});
+    }
 
-  handleOpen = () => {
-    this.setState({open: true,
-    });
+    handleOpen = () => {
+    //  console.log(this.state);
+    var self = this;
+        axios.get('http://localhost:3080/api/programmer').then(function(response) {
+            // this.programmerList=response;
+            console.log(response.data[0].user_name);
+            //console.log(self.state);
+            self.setState({programmerList:response.data, open:true});
+        }).catch(function(error) {
+            console.log(error);
+        })
 
-  };
+    };
 
-  handleClose = () => {
-    this.setState({open: false});
-  };
+    handleClose = () => {
+        this.setState({open: false});
+    };
 
+    handleChangeForSelect(event, index, value) {
+      console.log(value);
+    //    this.userData["assigned_to"] = value;
+        // if (this.userData.task_name == "" || this.userData.task_name == undefined
+        // || this.userData.assigned_to == "" || this.userData.assigned_to == undefined
+        // || this.userData.estimated_time == "" || this.userData.estimated_time == undefined) {
+        //     this.userData['disable'] = true;
+        // } else {
+        //     this.userData['disable'] = false;
+        // }
+        this.task.programmerSelected = value;
 
+        this.setState({task : this.task});
+    };
 
-  render(){
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}/>,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        disabled={this.state.disable}
-        onTouchTap={this.handleSubmit}/>,
-    ];
-    return(
-      <span>
-      <RaisedButton label="Add Task"  backgroundColor="#008080" fullWidth={true}  onTouchTap={this.handleOpen}/>
-        <Dialog
-          title="Enter Task Info"
-          actions={actions}
-          modal={false}
-          open={this.state.open}
-          autoScrollBodyContent={true}
-          onRequestClose={this.handleClose}>
-          <form>
-            <TextField
-            name="task_name"
-            hintText="Task name"
-            floatingLabelText="Task Name"
-            onChange={this.handleChange}/><br/>
-            <SelectField floatingLabelText="Select Programmer" value={props.value} name="user_type" onChange={this.handleChangeForSelect}>
-                <MenuItem value={"Manager"} primaryText="Manager"/>
-                <MenuItem value={"Programmer"} primaryText="Programmer"/>
-              </SelectField>
-              <TextField
-                name="estimated_time"
-                hintText="Estimated Time"
-                floatingLabelText="Estimated Time"
-                onChange={this.handleChange}/><br/>
-          </form>
-        </Dialog>
-      </span>
-    )
-  }
+    render() {
+        const actions = [ < FlatButton label = "Cancel" primary = {
+                true
+            }
+            onTouchTap = {
+                this.handleClose
+            } />, < FlatButton label = "Submit" primary = {
+                true
+            }
+            keyboardFocused = {
+                true
+            }
+
+            onTouchTap = {
+                this.handleSubmit
+            } />
+        ];
+        return (
+            <span>
+                <RaisedButton label="Add Task" backgroundColor="#008080" fullWidth={true} onTouchTap={this.handleOpen}/>
+                <Dialog title="Enter Task Info" actions={actions} modal={false} open={this.state.open} autoScrollBodyContent={true} onRequestClose={this.handleClose}>
+                    <form>
+                        <TextField name="task_name" hintText="Task name" floatingLabelText="Task Name" onChange={this.handleChange}/><br/>
+                        <TextField name="estimated_time" hintText="Estimated Time" floatingLabelText="Estimated Time" onChange={this.handleChange}/><br/>
+                        <SelectField floatingLabelText="Select Programmer" value={this.state.task.programmerSelected} name="assigned_to" onChange={this.handleChangeForSelect}>
+
+                              {this.state.programmerList.map((programmer)=>{
+                                  return <MenuItem  key = {programmer.user_name} value={programmer.user_name} primaryText = {programmer.user_name}/>
+                              })}
+                        </SelectField>
+                    </form>
+                </Dialog>
+            </span>
+        )
+    }
 }
 
-var styles={
-  dialog: {
-    width: '70%',
-    maxWidth: 'none',
-    height:'60%',
-    maxHeight:'none',
-  }
+var styles = {
+    dialog: {
+        width: '70%',
+        maxWidth: 'none',
+        height: '60%',
+        maxHeight: 'none'
+    }
 }
 // backgroundColor="#008080"

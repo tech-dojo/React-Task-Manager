@@ -62,6 +62,7 @@ export default class UserSignIn extends React.Component {
 
             var retrievUser = JSON.parse(localStorage.getItem('localStore'));
             console.log('retrievUser: ', retrievUser);
+            console.log(response.data.user_name);
 
           }).catch(function(error) {
               console.log(error);

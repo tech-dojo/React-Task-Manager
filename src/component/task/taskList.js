@@ -14,6 +14,7 @@ import {List, ListItem, makeSelectable} from 'material-ui/List';
 import { Flex, Grid } from 'reflexbox'
 import {blue600, blue500, red500, greenA200} from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
+import axios from 'axios';
 
 //import SearchBar from 'react-search-bar'
 
@@ -37,6 +38,9 @@ function wrapState(ComposedComponent) {
         selectedIndex: index,
       });
     };
+    handleTap = () =>{
+
+    }
 
     render() {
       return (
@@ -53,9 +57,11 @@ function wrapState(ComposedComponent) {
 
 SelectableList = wrapState(SelectableList);
 
+
 export default class TaskList extends React.Component {
   state = {
   open: false,
+  taskList : []
   };
 
   handleOpen = () => {
@@ -65,6 +71,18 @@ export default class TaskList extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   };
+  componentWillMount() {
+    var self = this
+    axios.get('http://localhost:3080/api/task/all').then(function(response) {
+      // this.programmerList=response;
+      console.log(response.data);
+      self.setState({taskList : response.data})
+    }).catch(function(error) {
+        console.log(error);
+    })
+  }
+
+
 
   render(){
     return(
@@ -88,36 +106,15 @@ export default class TaskList extends React.Component {
           <SelectableList  defaultValue={3}>
           <List>
             <Subheader inset={true}>Task List</Subheader>
-            <ListItem value={1}
-              leftAvatar={<Avatar icon={<ActionAssignment />} backgroundColor={blue500} />}
-              rightIcon={<ActionSchedule />}
-              primaryText="Fitness App: UI"
-              secondaryText="Assigned To: Steve Brown"
-              />
-          </List>
-            <List>
-              <ListItem value={2}
-                leftAvatar={<Avatar icon={<ActionAssignment />} backgroundColor={blue500} />}
-                rightIcon={<ActionDone color={greenA200}/>}
-                primaryText="Fitness App: Database"
-                secondaryText="Assigned To: Stephine Bell"
-                />
-            </List>
-              <List>
-                <ListItem  value={3}
-                  leftAvatar={<Avatar icon={<ActionAssignment />} backgroundColor={blue500} />}
-                  rightIcon={<ActionSchedule />}
-                  primaryText="Alarm App: UI"
-                  secondaryText="Assigned To: Anne Glory"
-                  />
-              </List>
-                <List>
-                  <ListItem  value={4}
-                    leftAvatar={<Avatar icon={<ActionAssignment />} backgroundColor={blue500} />}
-                    rightIcon={<ActionDone color={greenA200}/>}
-                    primaryText="Alarm App: IOS"
-                    secondaryText="Assigned To: Sam Brown"
-                    />
+              {this.state.taskList.map((task)=>{
+                  return   <ListItem key = {task.task_id}
+                      leftAvatar={<Avatar icon={<ActionAssignment />}
+                      rightIcon={<ActionDone color={greenA200}/>}
+                      backgroundColor={blue500} />}
+                      primaryText={task.task_name}
+                      secondaryText={task.assigned_to}
+                      />
+              })}
                   </List>
               </SelectableList>
             </div>
