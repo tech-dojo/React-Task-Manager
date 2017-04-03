@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ManagerModel from './managerModel'
 import ProgrammerModel from './programmerModel'
-import ProgrammerList from './component/employee/programmerList.js';
+import ProgrammerTask from './component/task/programmerTask.js';
 import TaskList from './component/task/taskList.js';
 import {Link, browserHistory} from 'react-router';
 import {Router, Route, IndexRoute} from 'react-router';
@@ -11,29 +11,47 @@ import CreateUser from './component/employee/createuser.js';
 import UserSignIn from './component/employee/userSignin.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-var retrievUser = JSON.parse(localStorage.getItem('localStore'));
-console.log('retrievUser: ', retrievUser);
 
 function loggedIn() {
     return retrievUser.user_type;
 }
+function isManager()
+{
+  return retrievUser.user_type==="Manager"
+}
 
+function isProgrammer()
+{
+  return retrievUser.user_type==="Programmer"
+}
 function requireAuth(nextState, replace) {
-    // if (loggedIn()==="Manager") {
-    //   replace({
-    //     pathname: '/managerModel'
-    //   })
-    // }
-    // else if(loggedIn()==="Programmer") {
-    //     replace({
-    //       pathname: '/programmerModel'
-    //     })
-    //   }
-    //   else{
-    //     replace({
-    //       pathname: '/userSignin'
-    //     })
-    //   }
+  var retrievUser = JSON.parse(localStorage.getItem('localStore'));
+  console.log('retrievUser: ', retrievUser);
+    if (retrievUser===null) {
+      replace({
+        pathname: '/userSignin'
+      })
+    }
+    else if(!isManager()) {
+        replace({
+          pathname: '/userSignin'
+        })
+      }
+}
+
+function requireAuthBeta(nextState, replace) {
+  var retrievUser = JSON.parse(localStorage.getItem('localStore'));
+  console.log('retrievUser: ', retrievUser);
+    if (retrievUser===null) {
+      replace({
+        pathname: '/userSignin'
+      })
+    }
+    else if(!isProgrammer()) {
+        replace({
+          pathname: '/userSignin'
+        })
+      }
 }
 
 // const UserSpecify = () => (function requireAuthBeta(nextState, replace) {
@@ -50,14 +68,16 @@ const App = () => {
     return (
         <MuiThemeProvider>
             <Router history={browserHistory}>
-                <Route path="/" component={ManagerModel} >
-                  <IndexRoute  component={TaskList}/>
+                <Route path="/" component={ManagerModel} onEnter={requireAuth} >
+                  <IndexRoute  component={TaskList} />
                     <Route path="taskList" component={TaskList}/>
-                      <Route path="userSignin" component={UserSignIn}/>
-
                 </Route>
 
-
+                <Route path="/programmerModel" component={ProgrammerModel} >
+                  <IndexRoute component={ProgrammerTask}/>
+                  <Route path="programmerTask" component={ProgrammerTask}/>
+                </Route>
+                <Route path="userSignin" component={UserSignIn}/>
                 <Route path="createUser" component={CreateUser}/>
             </Router>
         </MuiThemeProvider>
@@ -69,3 +89,7 @@ ReactDOM.render(
 //        <IndexRoute component={ProgrammerList}/>
 //                <Route path="/ProgrammerModel" component={ProgrammerModel}/>
 //       <Route path="/programmerModel" component={ProgrammerModel} onEnter={requireAuth}/>
+// <Route path="/programmerModel" component={ProgrammerModel}>
+//   <IndexRoute  path="/programmerModel" component={ProgrammerTask}/>
+//   <Route path="programmerTask" component={ProgrammerTask}/>
+// </Route>

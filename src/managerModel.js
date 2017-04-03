@@ -24,8 +24,14 @@ export default class ManagerModel extends React.Component {
             open: !this.state.open
         })
     };
-    handleClose = () => this.setState({open: false});
+    handleClose = () => {
+      this.setState({open: false})
 
+    };
+    handleSingOut=() =>{
+      localStorage.clear();
+    };
+    
     handleProgrammer = () =>{
       this.setState({open: false,
       });
@@ -58,22 +64,17 @@ export default class ManagerModel extends React.Component {
                       < FlatButton label = "Login" />
                     </Link>}/>
                 <Drawer docked={false} width={300} open={this.state.open}
-                  onRequestChange={(open) => this.setState({open})} >
-                      <Link to="/programmerList">
-                        <MenuItem onTouchTap={this.handleProgrammer}
-                          className="menuItem">Programmer</MenuItem>
-                      </Link>
-                      <Divider/>
-                      <Link to="/taskList">
+                  onRequestChange={(open) => this.setState({open})}
+                  className="asifDrawer">
+                      <Link to="/">
                           <MenuItem onTouchTap={this.handleTask}
                             className="menuItem">Task</MenuItem>
                       </Link>
+                      <Divider/>
                       <Link to="/userSignin">
-                          <MenuItem onTouchTap={this.handleClose}
+                          <MenuItem onTouchTap={this.handleSingOut}
                             className="menuItem">Sign Out</MenuItem>
                       </Link>
-
-
                 </Drawer>
                 { this.props.children }
             </div>

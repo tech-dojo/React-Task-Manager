@@ -23,7 +23,12 @@ export default class ProgrammerModel extends React.Component {
             open: !this.state.open
         })
     };
-    handleClose = () => this.setState({open: false});
+    handleClose = () => {
+      this.setState({open: false})
+    };
+    handleSingOut=() =>{
+      localStorage.clear();
+    };
 
     render() {
         return (
@@ -35,13 +40,14 @@ export default class ProgrammerModel extends React.Component {
                       < FlatButton label = "Login" />
                     </Link>}/>
                 <Drawer docked={false} width={300} open={this.state.open}
-                  onRequestChange={(open) => this.setState({open})} >
-                      <Link to="/taskList">
+                  onRequestChange={(open) => this.setState({open})}
+                  className="asifDrawer">
+                      <Link to="/programmerTask">
                           <MenuItem onTouchTap={this.handleClose}
                             className="menuItem">Task</MenuItem>
                       </Link>
                       <Link to="/userSignin">
-                          <MenuItem onTouchTap={this.handleClose}
+                          <MenuItem onTouchTap={this.handleSignOut}
                             className="menuItem">Sign Out</MenuItem>
                       </Link>
                 </Drawer>

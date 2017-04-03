@@ -50,7 +50,7 @@ export default class UserSignIn extends React.Component {
           }).then(function(response) {
             console.log(response);
             if(response.data.user_type==="Manager"){
-              browserHistory.push('/managerModel')
+              browserHistory.push('/')
             }
             else if(response.data.user_type==="Programmer"){
               browserHistory.push('/programmerModel')
@@ -60,9 +60,7 @@ export default class UserSignIn extends React.Component {
             var localStore={'user_name':response.data.user_name, 'user_type':response.data.user_type};
             localStorage.setItem('localStore', JSON.stringify(localStore))
 
-            var retrievUser = JSON.parse(localStorage.getItem('localStore'));
-            console.log('retrievUser: ', retrievUser);
-            console.log(response.data.user_name);
+            //console.log(response.data.user_name);
 
           }).catch(function(error) {
               console.log(error);

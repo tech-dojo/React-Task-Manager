@@ -86,7 +86,7 @@ var Task = sequelize.define('task', {
 //app.use(express.static('public'))
 
 app.post('/api/user/create', function(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   User.create({
    id: new Date().valueOf(),
    user_name: req.body.user_name,
@@ -97,7 +97,7 @@ app.post('/api/user/create', function(req, res) {
 });
 
 app.post('/api/user/signin', function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     User.findOne({
         where: {
             user_name: req.body.user_name
@@ -141,7 +141,7 @@ app.get('/api/programmer', function(req, res) {
 
 
 app.post('/api/task/create', function(req, res){
-  console.log(req.body);
+  // console.log(req.body);
       Task.create({
         task_id:new Date().valueOf(),
         created_by: req.body.created_by,
@@ -152,14 +152,53 @@ app.post('/api/task/create', function(req, res){
       res.json({ok:"true"});
 });
 
+
+app.put('/api/task/update/:t_ID', function(req, res){
+  var tid = req.params.t_ID;
+  // console.log(req.body.user_type);
+  console.log("checking for UPDATE params");
+  console.log(req.params);
+  Task.update({
+    task_name: req.body.task_name,
+    assigned_to: req.body.assigned_to,
+    estimated_time: req.body.estimated_time,
+  }, {
+      where: {
+          id: tid
+      }
+  }).then(function(task) {
+      console.log(task);
+
+  }).catch(function(e) {
+      console.log("Project update failed !");
+  });
+});
+
 app.get('/api/task/all', function(req, res) {
   Task.findAll().then(function(task){
     res.json(task);
   })
 });
 
-app.get('/api/task/TaskID/:t_ID', function(req, res) {
 
+app.get('/api/taskP/:programmerName', function(req, res) {
+  var programmer = req.params.programmerName;
+  Task.findAll({
+      where: {
+          assigned_to:programmer
+      }
+  }).then(function(task){
+      console.log("I Program");
+    res.json(task);
+  }).catch(function(e) {
+      console.log("Project update failed !");
+  });
+  console.log("I Am Programmer");
+});
+
+app.get('/api/task/tid/:t_ID', function(req, res) {
+  console.log("checking for params");
+console.log(req.params);
   var id = req.params.t_ID;
 
   Task.findById(id).then(function(task){
@@ -169,29 +208,30 @@ app.get('/api/task/TaskID/:t_ID', function(req, res) {
 
 
 app.put('/api/user/update/:ID', function(req, res) {
-  var uid = req.params.ID;
-  console.log(req.body.user_type);
+    var uid = req.params.ID;
+    // console.log(req.body.user_type);
 
+    User.update({
+        user_name: req.body.user_Name,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        user_type: req.body.user_type
+    }, {
+        where: {
+            id: uid
+        }
+    }).then(function(user) {
+        console.log(user);
 
-  User.update(
-    { user_name: req.body.user_Name,
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      user_type: req.body.user_type
-     },
-    { where: { id: uid }
-  }).then(function(user){
-    console.log(user);
+    }).catch(function(e) {
+        console.log("Project update failed !");
+    });
 
-  }).catch(function(e) {
-    console.log("Project update failed !");
-});
-
-  res.send("yes");
+    res.send("yes");
 });
 
 
 User.sync({force: false});
-Task.sync({force: true});
+Task.sync({force: false});
 
 app.listen(3080);
