@@ -63,6 +63,8 @@ export default class TaskList extends React.Component {
 
         this.handleChangeForSelect = this.handleChangeForSelect.bind(this);
         this.taskSelect = {};
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     };
 
     handleOpen = () => {
@@ -72,22 +74,34 @@ export default class TaskList extends React.Component {
     };
 
     handleSubmit(event) {
-        console.log(this.state);
-        this.userData[event.target] = null;
-        var userData = {
-            task_name: this.state.taskSelect.ask_name,
+      //  console.log(this.state.taskSelect);
+      //  this.state.taskSelect[event.target] = null;
+        var taskSelect = {
+            task_name: this.state.taskSelect.task_name,
             assigned_to: this.state.taskSelect.assigned_to,
             estimated_time: this.state.taskSelect.estimated_time
 
         }
-        console.log(userData);
-        axios.put('http://localhost:3080/api/task/create', userData).then(function(response) {
+        console.log(this.state.taskList);
+        // var index = 0;
+        // for(var i =0 ;i<this.state.taskList.length;i++){
+        //   if(this.state.taskList[i].task_id==this.state.taskSelect.id){
+        //     index = i;
+        //   }
+        // }
+        // this.state.taskList[index] = this.state.taskSelect;
+        //     this.setState({taskList:this.state.taskList,  open: false});
+        this.setState({open: false});
+        var self = this;
+
+        axios.put("http://localhost:3080/api/task/update/" + this.state.taskSelect.id,taskSelect).then(function(response) {
             console.log(response.data);
+            self.loadtaskAll();
         }).catch(function(error) {
             console.log(error);
         });
 
-        this.setState({open: false});
+
     }
 
     handleClose = () => {
@@ -102,10 +116,23 @@ export default class TaskList extends React.Component {
         }).catch(function(error) {
             console.log(error);
         })
-
+        //console.log("find me");
         var retrievUser = JSON.parse(localStorage.getItem('localStore'));
-        console.log('retrievUser: ', retrievUser);
+        //console.log('retrievUser: ', retrievUser);
 
+    }
+
+    loadtaskAll(){
+      var self = this
+      axios.get('http://localhost:3080/api/task/all').then(function(response) {
+          // this.programmerList=response;
+          console.log(response.data);
+          self.setState({taskList: response.data})
+      }).catch(function(error) {
+          console.log(error);
+      })
+      //console.log("find me");
+      var retrievUser = JSON.parse(localStorage.getItem('localStore'));
     }
 
     handleTouchTap = (id) => {
@@ -115,8 +142,9 @@ export default class TaskList extends React.Component {
         //console.log(self);
         axios.get("http://localhost:3080/api/task/tid/" + id).then(function(response) {
             // this.programmerList=response;
-            console.log(response.data);
+            //console.log(response.data);
             self.taskSelect = response.data;
+            self.taskSelect.id= id;
             self.setState({taskSelect: response.data})
         }).catch(function(error) {
             console.log(error);
@@ -124,13 +152,29 @@ export default class TaskList extends React.Component {
 
         axios.get('http://localhost:3080/api/programmer').then(function(response) {
             // this.programmerList=response;
-            console.log(response.data[0].user_name);
+            //console.log(response.data[0].user_name);
             //console.log(self.state);
             self.setState({programmerList: response.data, open: true});
-            console.log(self);
+            //console.log(self);
         }).catch(function(error) {
             console.log(error);
         });
+    }
+    handleChange(event) {
+        this.state.taskSelect[event.target.name] = event.target.value;
+        // if (this.userData.task_name == "" || this.userData.task_name == undefined
+        // || this.userData.assigned_to == "" || this.userData.assigned_to == undefined
+        // || this.userData.estimated_time == "" || this.userData.estimated_time == undefined) {
+        //     this.userData['disable'] = true;
+        // } else {
+        //     this.userData['disable'] = false;
+        // }
+
+      //  console.log(this.userData);
+        this.setState(
+          {taskSelect : this.state.taskSelect}
+        );
+  //    console.log(this.state.taskSelect);
     }
     handleChangeForSelect(event, index, value) {
         //  console.log(value);

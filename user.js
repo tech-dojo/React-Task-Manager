@@ -60,7 +60,7 @@ var Task = sequelize.define('task', {
   },
   estimated_time: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
 },
 { timestamps: false,
@@ -157,20 +157,22 @@ app.put('/api/task/update/:t_ID', function(req, res){
   var tid = req.params.t_ID;
   // console.log(req.body.user_type);
   console.log("checking for UPDATE params");
+  console.log(req.body);
   console.log(req.params);
   Task.update({
     task_name: req.body.task_name,
     assigned_to: req.body.assigned_to,
     estimated_time: req.body.estimated_time,
+    started_on: req.body.started_on,
+    completed_on: req.body.completed_on,
   }, {
       where: {
-          id: tid
+          task_id: tid
       }
   }).then(function(task) {
-      console.log(task);
-
+    res.json(task);
   }).catch(function(e) {
-      console.log("Project update failed !");
+    res.json(e);
   });
 });
 

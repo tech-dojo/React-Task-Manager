@@ -48,6 +48,8 @@ export default class UserSignIn extends React.Component {
               user_name: this.state.user_name,
               password: this.state.password,
           }).then(function(response) {
+            var localStore={'user_name':response.data.user_name, 'user_type':response.data.user_type};
+            localStorage.setItem('localStore', JSON.stringify(localStore))
             console.log(response);
             if(response.data.user_type==="Manager"){
               browserHistory.push('/')
@@ -57,10 +59,7 @@ export default class UserSignIn extends React.Component {
             }else{
               console.log("User Name or Password Mismatch");
             }
-            var localStore={'user_name':response.data.user_name, 'user_type':response.data.user_type};
-            localStorage.setItem('localStore', JSON.stringify(localStore))
-
-            //console.log(response.data.user_name);
+            console.log(response.data.user_name);
 
           }).catch(function(error) {
               console.log(error);
