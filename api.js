@@ -1,7 +1,7 @@
 var express = require('express');
 var Sequelize = require('sequelize');
 var app = express();
-var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
+var sequelize = new Sequelize('postgres://shoque:perPER987123@localhost:5432/shoque');
 var cors = require('cors')
 var bodyparser = require('body-parser');
 
@@ -65,35 +65,20 @@ var Task = sequelize.define('task', {
 },
 { timestamps: false,
 });
-// app.get('/test', function(req, res){
-//
-//
-//   res.json({name:"john",id:1});
-// });
-// User.findById(id).then(function(user) {
-//   if(user){
-//     user.updateAttributes({
-//       user_Name: req.body.user_Name,
-//       First_Name: req.body.First_Name,
-//       Last_Name: req.body.Last_Name,
-//       User_Type: req.body.User_Type
-//     }).then(function(){
-//       res.send(user);
-//     });
-//   }
-// })
 
-//app.use(express.static('public'))
 
 app.post('/api/user/create', function(req, res) {
-  // console.log(req.body);
   User.create({
    id: new Date().valueOf(),
    user_name: req.body.user_name,
    password: req.body.password,
    user_type: req.body.user_type
+ }).then(function(user) {
+          res.json(user);
+ }).catch(function(error) {
+     res.json(error.errors);
  })
-    res.send("yes");
+
 });
 
 app.post('/api/user/signin', function(req, res) {
@@ -104,12 +89,12 @@ app.post('/api/user/signin', function(req, res) {
         }
     }).then(function(user) {
             if (req.body.password === user.password) {
-                res.json(user)
+                res.json(user);
             } else {
-                res.send("Mismatch")
+                res.json({error:"mismatch"});
             }
     }).catch(function(error) {
-        console.log("Mismatch");
+          res.json(error);
     })
 });
 
@@ -148,8 +133,10 @@ app.post('/api/task/create', function(req, res){
         task_name: req.body.task_name,
         assigned_to: req.body.assigned_to,
         estimated_time: req.body.estimated_time,
+      }).then(function(task) {
+          res.json(task);
       })
-      res.json({ok:"true"});
+
 });
 
 
@@ -223,13 +210,14 @@ app.put('/api/user/update/:ID', function(req, res) {
             id: uid
         }
     }).then(function(user) {
-        console.log(user);
+        res.json(user);
 
     }).catch(function(e) {
         console.log("Project update failed !");
+        res.json(e);
     });
 
-    res.send("yes");
+
 });
 
 

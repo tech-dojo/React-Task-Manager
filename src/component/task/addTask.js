@@ -65,14 +65,18 @@ export default class AddTask extends React.Component {
           estimated_time: this.state.task.estimated_time
 
         }
+        var self = this;
         console.log(userData);
         axios.post('http://localhost:3080/api/task/create',userData).then(function(response) {
             console.log(response.data);
+            self.props.loadtaskAll();
+           self.setState({open: false});
+
         }).catch(function(error) {
             console.log(error);
         })
-        this.setState({open: false});
     }
+
 
     handleOpen = () => {
     //  console.log(this.state);

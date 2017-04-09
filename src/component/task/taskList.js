@@ -65,6 +65,7 @@ export default class TaskList extends React.Component {
         this.taskSelect = {};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.loadtaskAll = this.loadtaskAll.bind(this);
     };
 
     handleOpen = () => {
@@ -83,14 +84,7 @@ export default class TaskList extends React.Component {
 
         }
         console.log(this.state.taskList);
-        // var index = 0;
-        // for(var i =0 ;i<this.state.taskList.length;i++){
-        //   if(this.state.taskList[i].task_id==this.state.taskSelect.id){
-        //     index = i;
-        //   }
-        // }
-        // this.state.taskList[index] = this.state.taskSelect;
-        //     this.setState({taskList:this.state.taskList,  open: false});
+
         this.setState({open: false});
         var self = this;
 
@@ -221,7 +215,7 @@ export default class TaskList extends React.Component {
         return (
             <div>
                 <div>
-                    <AddTask/>
+                    <AddTask loadtaskAll = {this.loadtaskAll}/>
                 </div>
                 <div>
                     <SelectableList defaultValue={3}>
