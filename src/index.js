@@ -63,9 +63,9 @@ function requireAuthBeta(nextState, replace) {
 //     //   })
 //     // }
 // }
+injectTapEventPlugin();
 
 const App = () => {
-    injectTapEventPlugin();
 
     return (
         <MuiThemeProvider>
