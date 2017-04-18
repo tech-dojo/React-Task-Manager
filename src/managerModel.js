@@ -3,9 +3,7 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
-import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import Menu from 'material-ui/Menu';
@@ -68,6 +66,8 @@ export default class ManagerModel extends React.Component {
                     <Link to="/userSignin">
                         <MenuItem onTouchTap={this.handleSignOut}>Sign Out</MenuItem>
                     </Link>
+                    <Divider/>
+
                 </Drawer>
                 {this.props.children}
             </div>

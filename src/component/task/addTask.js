@@ -130,7 +130,7 @@ export default class AddTask extends React.Component {
         ];
         return (
             <span>
-                <RaisedButton label="Add Task" backgroundColor="#008080" fullWidth={true} onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Add Task"  backgroundColor="#a4c639" fullWidth={true} onTouchTap={this.handleOpen}/>
                 <Dialog title="Enter Task Info" actions={actions} modal={false} open={this.state.open} autoScrollBodyContent={true} onRequestClose={this.handleClose}>
                     <form>
                         <TextField name="task_name" hintText="Task name" floatingLabelText="Task Name" onChange={this.handleChange}/><br/>

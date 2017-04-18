@@ -4,12 +4,8 @@ import AddTask from './addTask.js'
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 //import MobileTearSheet from '../../../MobileTearSheet';
-import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
-import ActionSearch from 'material-ui/svg-icons/action/search';
-import ActionDone from 'material-ui/svg-icons/action/done';
-import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
 import {Flex, Grid} from 'reflexbox'
 import FlatButton from 'material-ui/FlatButton';
@@ -215,12 +211,12 @@ export default class TaskList extends React.Component {
         return (
             <div>
                 <div>
-                    <AddTask loadtaskAll = {this.loadtaskAll}/>
+
                 </div>
                 <div>
                     <SelectableList defaultValue={3}>
                         <List>
-                            <h1>Task List</h1>
+                            <AddTask loadtaskAll = {this.loadtaskAll}/>
                             {this.state.taskList.map((task) => {
                                 return <ListItem key={task.task_id} leftAvatar={< Avatar icon = { < ActionAssignment />
                                 }
