@@ -8,8 +8,13 @@ import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 import Menu from 'material-ui/Menu';
 import {Link} from 'react-router';
+
 const style = {
-  margin: 8,
+    margin: 2,
+    chip: {
+        margin: 4,
+        float: 'left'
+    }
 };
 export default class ProgrammerModel extends React.Component {
 
@@ -35,7 +40,12 @@ export default class ProgrammerModel extends React.Component {
     render() {
         return (
             <div>
-                <AppBar title="PROJECT MANAGEMENT" onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={< Link to = "/userSignin" > <RaisedButton label="Log Out" secondary={true} style={style}/> < /Link>}/>
+                <AppBar title="PROJECT MANAGEMENT" onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={< Link to = "/userSignin" > < RaisedButton label = {JSON.parse(localStorage.getItem('localStore')).user_name +"(sign out)"} secondary = {
+                    true
+                }
+                style = {
+                    style
+                } /> < /Link>}/>
                 <Drawer docked={false} width={300} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
                     <Link to="/programmerModel">
                         <MenuItem onTouchTap={this.handleClose}>Task</MenuItem>

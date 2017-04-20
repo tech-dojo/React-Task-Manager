@@ -232,7 +232,7 @@ export default class TaskList extends React.Component {
                     <Dialog title="Edit Task Info" actions={actions} modal={false} open={this.state.open} autoScrollBodyContent={true} onRequestClose={this.handleClose}>
                         <form>
                             <TextField name="task_name" hintText="Task name" floatingLabelText="Task Name" onChange={this.handleChange} defaultValue={this.state.taskSelect.task_name}/><br/>
-                            <TextField name="estimated_time" hintText="Estimated Time" floatingLabelText="Estimated Time" onChange={this.handleChange} defaultValue={this.state.taskSelect.estimated_time}/><br/>
+                            <TextField type = "number" name="estimated_time" hintText="Estimated Time" floatingLabelText="Estimated Time" onChange={this.handleChange} defaultValue={this.state.taskSelect.estimated_time}/><br/>
                             <SelectField floatingLabelText="Select Programmer" value={this.state.taskSelect.assigned_to} name="assigned_to" onChange={this.handleChangeForSelect}>
                                 {this.state.programmerList.map((programmer) => {
                                     return <MenuItem key={programmer.user_name} value={programmer.user_name} primaryText={programmer.user_name}/>

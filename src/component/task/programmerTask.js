@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import AddTask from './addTask.js'
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-//import MobileTearSheet from '../../../MobileTearSheet';
 import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
@@ -16,12 +15,12 @@ import ActionLaunch from 'material-ui/svg-icons/action/launch';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
 import {Flex, Grid} from 'reflexbox'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import {blue600, blue500, red500, greenA200} from 'material-ui/styles/colors';
+import {blue800, blue500, red500, greenA200} from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import axios from 'axios';
 import Chip from 'material-ui/Chip';
-
+import dateFormat from 'dateformat';
 //import SearchBar from 'react-search-bar'
 
 let SelectableList = makeSelectable(List);
@@ -123,17 +122,16 @@ export default class ProgrammerTask extends React.Component {
         console.log(taskSelect);
     }
     handleStart(task) {
-      console.log(task);
+        console.log(task);
         if (task.started_on == null || task.started_on == undefined || task.started_on == "") {
             var taskSelect = {
                 started_on: new Date()
             }
-        }
-        else {
-          console.log("entered ekse");
-          var taskSelect = {
-              completed_on: new Date()
-          }
+        } else {
+            console.log("entered ekse");
+            var taskSelect = {
+                completed_on: new Date()
+            }
         }
 
         var self = this;
@@ -186,39 +184,38 @@ export default class ProgrammerTask extends React.Component {
                 <div>
                     <SelectableList defaultValue={3}>
                         <List>
-                            <h1>{JSON.parse(localStorage.getItem('localStore')).user_name} TASKS
+                            <h1>
+                                TASKS
                             </h1>
                             {this.state.taskList.map((task) => {
-                                return <ListItem key={task.task_id} leftAvatar={< Avatar icon = { < ActionAssignment />
+                                return <ListItem key={task.task_id} style={styles.wrapper} leftAvatar={< Avatar icon = { < ActionAssignment />
                                 }
-                                backgroundColor = {
-                                    blue500
-                                } />} primaryText={task.task_name} secondaryText={task.estimated_time}>
-                                    <RaisedButton disabled ={task.completed_on == undefined || null || ""
+                                />}>
+                                    <RaisedButton  style={styles.chip} disabled ={task.completed_on == undefined || null || ""
                                         ? false
                                         : true} label={task.started_on == undefined || null || ""
                                         ? "start"
                                         : "finish"} backgroundColor="#a4c639" onTouchTap={this.handleStart.bind(this, task)}/>
-                                      <label>Started On : {task.started_on!=null? new Date(task.started_on).toString():"Not Started"} </label>
-                                      <label>Completed On : {task.completed_on!=null? new Date(task.completed_on).toString():"Not finished"} </label>
+                                      <Chip backgroundColor="#BBDEFB"  style={styles.chip}>{task.task_name}
+                                        </Chip>
+                                        <Chip backgroundColor={blue800}  style={styles.chip}>{task.estimated_time} hours
+                                        </Chip>
+                                  <Chip backgroundColor={blue500}  style={styles.chip}>Started : {task.started_on != null
+                                            ? dateFormat(new Date(task.started_on), "dddd, mmmm dS, yyyy, h:MM:ss TT")
+                                            : "Not Started"}
+                                    </Chip>
+                                    <Chip backgroundColor={red500}  style={styles.chip}>Completed : {task.completed_on != null
+                                            ? dateFormat(new Date(task.completed_on), "dddd, mmmm dS, yyyy, h:MM:ss TT")
+                                            : "Not finished"}
+                                    </Chip>
+                                    <Chip backgroundColor={greenA200}  style={styles.chip}>completed in {task.completed_on != null?(Math.abs(new Date(task.completed_on) - new Date(task.started_on)) / 36e5).toFixed(3):"not started"} hours
+                                    </Chip>
                                 </ListItem>
                             })}
                         </List>
                     </SelectableList>
                 </div>
                 <div>
-                    <Dialog title="Task Interaction" actions={actions} modal={false} open={this.state.open} onRequestClose={this.handleClose} contentStyle={styles.DrawerStyle}>
-                        <FloatingActionButton onClick={this.handleStart}>
-                            <AvPlayCircleOutline/>
-                        </FloatingActionButton>
-                        <h4>Started ON {this.state.taskSelect.started_on}</h4>
-                        <br/>
-                        <br/>
-                        <FloatingActionButton onClick={this.handleDone}>
-                            <ActionDone/>
-                        </FloatingActionButton>
-                        <h4>Completed ON {this.state.taskSelect.completed_on}</h4>
-                    </Dialog>
                 </div>
             </div>
         )
@@ -239,5 +236,13 @@ var styles = {
     DrawerStyle: {
         width: '20%',
         maxWidth: 'none'
+    },
+    chip: {
+        margin: 4,
+        float : 'left'
+    },
+    wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap'
     }
 }
