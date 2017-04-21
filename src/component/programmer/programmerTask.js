@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-import AddTask from './addTask.js'
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -63,7 +62,6 @@ export default class ProgrammerTask extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
-
     handleOpen = () => {
         this.setState({open: true});
     };

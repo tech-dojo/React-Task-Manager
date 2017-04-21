@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import ManagerModel from './managerModel'
-import ProgrammerModel from './programmerModel'
-import ProgrammerTask from './component/task/programmerTask.js';
-import TaskList from './component/task/taskList.js';
+import ManagerView  from './component/manager/managerView.js'
+import ProgrammerModel from './component/programmer/programmerModel'
+import ProgrammerTask from './component/programmer/programmerTask.js';
+import TaskList from './component/manager/taskList.js';
 import {Link, browserHistory} from 'react-router';
 import {Router, Route, IndexRoute} from 'react-router';
-import CreateUser from './component/employee/createuser.js';
-import UserSignIn from './component/employee/userSignin.js';
+import CreateUser from './component/manager/createuser.js';
+import UserSignIn from './component/manager/userSignin.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
@@ -70,7 +70,7 @@ const App = () => {
     return (
         <MuiThemeProvider>
             <Router history={browserHistory}>
-                <Route path="/" component={ManagerModel} onEnter={requireAuth} >
+                <Route path="/" component={ManagerView} onEnter={requireAuth} >
                   <IndexRoute  component={TaskList} />
                     <Route path="taskList" component={TaskList}/>
                 </Route>

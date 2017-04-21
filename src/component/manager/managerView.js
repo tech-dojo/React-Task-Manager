@@ -13,7 +13,7 @@ const style = {
   margin: 8,
 };
 
-export default class ManagerModel extends React.Component {
+export default class ManagerView extends React.Component {
 
     constructor(props) {
         super(props);
