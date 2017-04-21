@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import {orange500, red300, blue500} from 'material-ui/styles/colors';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
+import Paper from 'material-ui/Paper';
 
 export default class UserSignIn extends React.Component {
     constructor(props) {
@@ -79,7 +80,10 @@ export default class UserSignIn extends React.Component {
 }
 
 const CreateUserForm = (props) => (
-    <div>
+
+  <div style={styles.div}>
+    <Paper zDepth={3} style={styles.paperOne}>
+      <h1  style={{fontWeight: 'bold', color: '#880E4F' , fontSize:30}}>User LogIn</h1>
         <TextField name="user_name" floatingLabelText="User Name" onChange={props.handleChange}
           underlineStyle={styles.underlineStyle}/><br/>
         <TextField type="password" name="password"
@@ -87,19 +91,16 @@ const CreateUserForm = (props) => (
           onChange={props.handleChange}
           underlineStyle={styles.underlineStyle}/><br/>
         <FlatButton label="SUBMIT" primary={true} disabled={props.disabled} onTouchTap={props.handleSubmit}/>
-    </div>
+    </Paper>
+  </div>
 )
 
 const styles = {
     div: {
-        verticalAlign: 'middle',
-        display: 'flex',
-        flexDirection: 'row wrap',
-        padding: 10,
-        justifyContent: 'center',
+        padding: 20,
         textAlign: 'center',
-        width: '60%',
-        border: '3px'
+        width: '96%',
+        float: "center"
     },
     errorStyle: {
         color: red300
@@ -113,12 +114,13 @@ const styles = {
     floatingLabelFocusStyle: {
         color: blue500
     },
-    paperLeft: {
-        flex: 1,
+    paperOne: {
         height: '100%',
-
         textAlign: 'center',
-        padding: 10
+        padding: 10,
+        margin: 10,
+        float: "center",
+        backgroundColor:"#E0F7FA",
     },
     paperRight: {
         height: 600,
