@@ -14,7 +14,9 @@ import {blue600, blue500, red500, greenA200} from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 import axios from 'axios';
+import Chip from 'material-ui/Chip';
 import Dialog from 'material-ui/Dialog';
+import dateFormat from 'dateformat';
 //import SearchBar from 'react-search-bar'
 
 let SelectableList = makeSelectable(List);
@@ -218,11 +220,21 @@ export default class TaskList extends React.Component {
                         <List>
                             <AddTask loadtaskAll = {this.loadtaskAll}/>
                             {this.state.taskList.map((task) => {
-                                return <ListItem key={task.task_id} leftAvatar={< Avatar icon = { < ActionAssignment />
-                                }
-                                backgroundColor = {
-                                    blue500
-                                } />} primaryText={task.task_name} secondaryText={task.assigned_to} onTouchTap={this.handleTouchTap.bind(this, task.task_id)}/>
+                                return <ListItem key={task.task_id} leftAvatar={< Avatar icon = { < ActionAssignment />}
+                                          backgroundColor = {blue500  } />}
+                                          onTouchTap={this.handleTouchTap.bind(this, task.task_id)}>
+
+                                          <label style={{fontWeight: 'bold', color: '#006064' , fontSize:25}}>{task.task_name}</label>
+                                          <div style={styles.wrapper}>
+                                            <Chip backgroundColor="#00bcd4"  style={styles.chip}>Assigned To : {task.assigned_to}
+                                            </Chip>
+                                            {task.started_on != null?(task.completed_on != null?
+                                              <Chip backgroundColor="#4CAF50"  style={styles.chip}>Completed On :  {dateFormat(new Date(task.completed_on), "dddd, mmmm dS, yyyy, h:MM:ss TT ")} ; Completed In :  {(Math.abs(new Date(task.completed_on) - new Date(task.started_on)) / 36e5).toFixed(3)} hours</Chip>
+                                                :<Chip backgroundColor="#F9A825" style={styles.chip}>Started On :  {dateFormat(new Date(task.started_on), "dddd, mmmm dS, yyyy, h:MM:ss TT")}</Chip>)
+                                                  :<Chip backgroundColor="#FF7043"   style={styles.chip}>Not Started</Chip>}
+
+                                          </div>
+                                        </ListItem>
                             })}
                         </List>
                     </SelectableList>
@@ -251,5 +263,13 @@ const iconStyles = {
 var styles = {
     title: {
         cursor: 'pointer'
+    },
+    chip: {
+        margin: 4,
+        float : 'left'
+    },
+    wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap'
     }
 }

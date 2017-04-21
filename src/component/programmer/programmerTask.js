@@ -186,28 +186,29 @@ export default class ProgrammerTask extends React.Component {
                                 TASKS
                             </h1>
                             {this.state.taskList.map((task) => {
-                                return <ListItem key={task.task_id} style={styles.wrapper} leftAvatar={< Avatar icon = { < ActionAssignment />
-                                }
-                                />}>
-                                    <RaisedButton  style={styles.chip} disabled ={task.completed_on == undefined || null || ""
-                                        ? false
-                                        : true} label={task.started_on == undefined || null || ""
-                                        ? "start"
-                                        : "finish"} backgroundColor="#a4c639" onTouchTap={this.handleStart.bind(this, task)}/>
-                                      <Chip backgroundColor="#BBDEFB"  style={styles.chip}>{task.task_name}
-                                        </Chip>
-                                        <Chip backgroundColor={blue800}  style={styles.chip}>{task.estimated_time} hours
-                                        </Chip>
-                                  <Chip backgroundColor={blue500}  style={styles.chip}>Started : {task.started_on != null
-                                            ? dateFormat(new Date(task.started_on), "dddd, mmmm dS, yyyy, h:MM:ss TT")
-                                            : "Not Started"}
-                                    </Chip>
-                                    <Chip backgroundColor={red500}  style={styles.chip}>Completed : {task.completed_on != null
-                                            ? dateFormat(new Date(task.completed_on), "dddd, mmmm dS, yyyy, h:MM:ss TT")
-                                            : "Not finished"}
-                                    </Chip>
-                                    <Chip backgroundColor={greenA200}  style={styles.chip}>completed in {task.completed_on != null?(Math.abs(new Date(task.completed_on) - new Date(task.started_on)) / 36e5).toFixed(3):"not started"} hours
-                                    </Chip>
+                                return <ListItem key={task.task_id}
+                                          leftAvatar={< Avatar icon = { < ActionAssignment />  }  backgroundColor = {blue500}/>}
+                                          rightIcon={<RaisedButton disabled ={task.completed_on == undefined || null || ""
+                                              ? false
+                                              : true} label={task.started_on == undefined || null || ""
+                                              ? "start"
+                                              : "finish"} backgroundColor="#26a69a" onTouchTap={this.handleStart.bind(this, task)}/>}
+                                           >
+                                           <label style={{fontWeight: 'bold', color: '#006064' , fontSize:25}}>{task.task_name}</label>
+                                           <div style={styles.wrapper}>
+                                              <Chip backgroundColor="#00bcd4"  style={styles.chip}>Alloted Time : {task.estimated_time} hours
+                                              </Chip>
+                                              <Chip backgroundColor="#26a69a"  style={styles.chip}>Started : {task.started_on != null
+                                                ? dateFormat(new Date(task.started_on), "dddd, mmmm dS, yyyy, h:MM:ss TT")
+                                                : "Not Started"}
+                                              </Chip>
+                                              <Chip backgroundColor="#f48fb1"  style={styles.chip}>Completed : {task.completed_on != null
+                                                ? dateFormat(new Date(task.completed_on), "dddd, mmmm dS, yyyy, h:MM:ss TT")
+                                                : "Not Finished"}
+                                              </Chip>
+                                              <Chip backgroundColor="#a5d6a7"  style={styles.chip}>Completed In : {task.completed_on != null?(Math.abs(new Date(task.completed_on) - new Date(task.started_on)) / 36e5).toFixed(3)+" hours":"Not Started"}
+                                              </Chip>
+                                          </div>
                                 </ListItem>
                             })}
                         </List>

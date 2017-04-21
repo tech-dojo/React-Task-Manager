@@ -40,9 +40,9 @@ export default class ProgrammerModel extends React.Component {
     render() {
         return (
             <div>
-                <AppBar title="PROJECT MANAGEMENT" onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={< Link to = "/userSignin" > < RaisedButton label = {JSON.parse(localStorage.getItem('localStore')).user_name +"(sign out)"} secondary = {
-                    true
-                }
+                <AppBar title="PROJECT MANAGEMENT"
+                  onLeftIconButtonTouchTap={this.handleToggle}
+                  iconElementRight={< Link to = "/userSignin" > < RaisedButton  label = {JSON.parse(localStorage.getItem('localStore')).user_name +"(sign out)"}
                 style = {
                     style
                 } /> < /Link>}/>

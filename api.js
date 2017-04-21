@@ -1,6 +1,7 @@
 var express = require('express');
 var Sequelize = require('sequelize');
 var app = express();
+//var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
 var sequelize = new Sequelize('postgres://shoque:perPER987123@localhost:5432/shoque');
 var cors = require('cors')
 var bodyparser = require('body-parser');
