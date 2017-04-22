@@ -7,11 +7,12 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import axios from 'axios';
-var retrievUser = JSON.parse(localStorage.getItem('localStore'))
 
 export default class AddTask extends React.Component {
     constructor(props) {
         super(props);
+        this.retrievUser = JSON.parse(localStorage.getItem('localStore'));
+
         this.state = {
           programmerList  :[],
           userData : {},
@@ -58,7 +59,7 @@ export default class AddTask extends React.Component {
         console.log(this.state);
         this.userData[event.target] = null;
         var userData = {
-          created_by: retrievUser.user_name,
+          created_by: this.retrievUser.user_name,
           task_name: this.state.task.task_name,
           assigned_to: this.state.task.programmerSelected,
           estimated_time: this.state.task.estimated_time
