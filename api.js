@@ -1,5 +1,7 @@
 var express = require('express');
 var Sequelize = require('sequelize');
+var path = require('path');
+
 var app = express();
 //var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
 //postgres://shoque:perPER987123@localhost:5432/shoque
