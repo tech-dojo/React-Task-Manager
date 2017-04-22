@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import {orange500, red300, blue500} from 'material-ui/styles/colors';
 import axios from 'axios';
 import Paper from 'material-ui/Paper';
+import { browserHistory } from 'react-router';
 
 export default class CreateUser extends React.Component {
     constructor(props) {
