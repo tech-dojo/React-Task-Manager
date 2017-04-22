@@ -4,6 +4,7 @@ var path = require('path');
 
 var app = express();
 //var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
+//postgres://idhtsbjpftqiam:d22dd1e1bab55dc2c9bcc3b5fbc3819989ce38ce35a6a6ccc066b1b724df07ef@ec2-54-221-254-72.compute-1.amazonaws.com:5432/d1gppuj36flrk7
 //postgres://shoque:perPER987123@localhost:5432/shoque
 var sequelize = new Sequelize('postgres://idhtsbjpftqiam:d22dd1e1bab55dc2c9bcc3b5fbc3819989ce38ce35a6a6ccc066b1b724df07ef@ec2-54-221-254-72.compute-1.amazonaws.com:5432/d1gppuj36flrk7');
 var cors = require('cors')
@@ -108,7 +109,7 @@ app.get('/api/user/all', function(req, res) {
     res.json(user);
   })
 });
-//app.use(express.static('public'))
+app.use(express.static('public'))
 
 app.get( '/', function( req, res ) {
     res.sendFile( path.join( __dirname, 'public', 'index.html' ));
