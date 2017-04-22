@@ -2,6 +2,7 @@ var express = require('express');
 var Sequelize = require('sequelize');
 var app = express();
 //var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
+//postgres://shoque:perPER987123@localhost:5432/shoque
 var sequelize = new Sequelize('postgres://idhtsbjpftqiam:d22dd1e1bab55dc2c9bcc3b5fbc3819989ce38ce35a6a6ccc066b1b724df07ef@ec2-54-221-254-72.compute-1.amazonaws.com:5432/d1gppuj36flrk7');
 var cors = require('cors')
 var bodyparser = require('body-parser');
@@ -227,4 +228,4 @@ app.put('/api/user/update/:ID', function(req, res) {
 User.sync({force: false});
 Task.sync({force: false});
 
-app.listen(3080);
+app.listen(3080|||process.env.PORT);
