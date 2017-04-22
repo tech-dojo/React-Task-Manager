@@ -92,8 +92,9 @@ const CreateUserForm = (props) => (
           underlineStyle={styles.underlineStyle}/><br/>
         <FlatButton label="SUBMIT" primary={true} disabled={props.disabled} onTouchTap={props.handleSubmit}/>
     </Paper>
+    < Link to = "/createUser" >Create a new user </Link>
+
   </div>
-  < Link to = "/createUser" >Create a new user </Link>
 )
 
 const styles = {
