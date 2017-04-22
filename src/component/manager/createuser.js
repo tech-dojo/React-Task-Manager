@@ -78,6 +78,7 @@ export default class CreateUser extends React.Component {
             password: this.state.password,
             user_type: this.state.user_type
         }).then(function(response) {
+          browserHistory.push('/userSignin')
             console.log(response);
         }).catch(function(error) {
             console.log(error);
