@@ -228,4 +228,4 @@ app.put('/api/user/update/:ID', function(req, res) {
 User.sync({force: false});
 Task.sync({force: false});
 
-app.listen(3080|||process.env.PORT);
+app.listen(3080 || process.env.PORT);
