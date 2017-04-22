@@ -8,6 +8,7 @@ import { browserHistory } from 'react-router';
 import axios from 'axios';
 import Paper from 'material-ui/Paper';
 import {Link} from 'react-router';
+import url from './../config/config.js';
 
 export default class UserSignIn extends React.Component {
     constructor(props) {
@@ -46,7 +47,7 @@ export default class UserSignIn extends React.Component {
     handleSubmit(event) {
         console.log(this.state);
         this.userData[event.target] = null;
-          axios.post('http://localhost:3080/api/user/signin', {
+          axios.post(url + 'api/user/signin', {
               user_name: this.state.user_name,
               password: this.state.password,
           }).then(function(response) {

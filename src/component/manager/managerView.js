@@ -12,6 +12,7 @@ import axios from 'axios';
 const style = {
   margin: 8,
 };
+import url from './../config/config.js';
 
 export default class ManagerView extends React.Component {
 
@@ -36,7 +37,7 @@ export default class ManagerView extends React.Component {
 
     handleProgrammer = () => {
         this.setState({open: false});
-        axios.get('http://localhost:3080/api/programmer').then(function(response) {
+        axios.get(url + 'api/programmer').then(function(response) {
             // this.programmerList=response;
             console.log(response.data);
         }).catch(function(error) {
@@ -46,7 +47,7 @@ export default class ManagerView extends React.Component {
 
     handleTask = () => {
         this.setState({open: false});
-        axios.get('http://localhost:3080/api/task/all').then(function(response) {
+        axios.get(url + 'api/task/all').then(function(response) {
             // this.programmerList=response;
             console.log(response.data);
         }).catch(function(error) {

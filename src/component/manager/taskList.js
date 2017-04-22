@@ -16,6 +16,7 @@ import axios from 'axios';
 import Chip from 'material-ui/Chip';
 import Dialog from 'material-ui/Dialog';
 import dateFormat from 'dateformat';
+import url from './../config/config.js';
 
 let SelectableList = makeSelectable(List);
 function wrapState(ComposedComponent) {
@@ -84,7 +85,7 @@ export default class TaskList extends React.Component {
         this.setState({open: false});
         var self = this;
 
-        axios.put("http://localhost:3080/api/task/update/" + this.state.taskSelect.id,taskSelect).then(function(response) {
+        axios.put(url + "api/task/update/" + this.state.taskSelect.id,taskSelect).then(function(response) {
             console.log(response.data);
             self.loadtaskAll();
         }).catch(function(error) {
@@ -99,7 +100,7 @@ export default class TaskList extends React.Component {
     };
     componentWillMount() {
         var self = this
-        axios.get('http://localhost:3080/api/task/all').then(function(response) {
+        axios.get(url + 'api/task/all').then(function(response) {
             // this.programmerList=response;
             console.log(response.data);
             self.setState({taskList: response.data})
@@ -114,7 +115,7 @@ export default class TaskList extends React.Component {
 
     loadtaskAll(){
       var self = this
-      axios.get('http://localhost:3080/api/task/all').then(function(response) {
+      axios.get(url + 'api/task/all').then(function(response) {
           // this.programmerList=response;
           console.log(response.data);
           self.setState({taskList: response.data})
@@ -130,7 +131,7 @@ export default class TaskList extends React.Component {
         var self = this;
 
         //console.log(self);
-        axios.get("http://localhost:3080/api/task/tid/" + id).then(function(response) {
+        axios.get(url + "api/task/tid/" + id).then(function(response) {
             // this.programmerList=response;
             //console.log(response.data);
             self.taskSelect = response.data;
@@ -140,7 +141,7 @@ export default class TaskList extends React.Component {
             console.log(error);
         });
 
-        axios.get('http://localhost:3080/api/programmer').then(function(response) {
+        axios.get(url + 'api/programmer').then(function(response) {
             // this.programmerList=response;
             //console.log(response.data[0].user_name);
             //console.log(self.state);
