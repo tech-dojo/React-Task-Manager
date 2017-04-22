@@ -105,6 +105,8 @@ app.get('/api/user/all', function(req, res) {
     res.json(user);
   })
 });
+app.use(express.static('public'))
+
 
 app.get('/api/user/:ID', function(req, res) {
 

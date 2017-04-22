@@ -3,7 +3,6 @@ import {Link} from 'react-router';
 import AddTask from './addTask.js'
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-//import MobileTearSheet from '../../../MobileTearSheet';
 import Avatar from 'material-ui/Avatar';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
@@ -17,7 +16,6 @@ import axios from 'axios';
 import Chip from 'material-ui/Chip';
 import Dialog from 'material-ui/Dialog';
 import dateFormat from 'dateformat';
-//import SearchBar from 'react-search-bar'
 
 let SelectableList = makeSelectable(List);
 function wrapState(ComposedComponent) {

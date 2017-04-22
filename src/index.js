@@ -88,10 +88,3 @@ const App = () => {
 
 ReactDOM.render(
     <App/>, document.getElementById('root'));
-//        <IndexRoute component={ProgrammerList}/>
-//                <Route path="/ProgrammerModel" component={ProgrammerModel}/>
-//       <Route path="/programmerModel" component={ProgrammerModel} onEnter={requireAuth}/>
-// <Route path="/programmerModel" component={ProgrammerModel}>
-//   <IndexRoute  path="/programmerModel" component={ProgrammerTask}/>
-//   <Route path="programmerTask" component={ProgrammerTask}/>
-// </Route>
