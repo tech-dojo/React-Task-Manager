@@ -106,9 +106,11 @@ app.get('/api/user/all', function(req, res) {
     res.json(user);
   })
 });
-app.use(express.static('public'))
+//app.use(express.static('public'))
 
-
+app.get( '/', function( req, res ) {
+    res.sendFile( path.join( __dirname, 'public', 'index.html' ));
+  });
 app.get('/api/user/:ID', function(req, res) {
 
   var id = req.params.ID;
