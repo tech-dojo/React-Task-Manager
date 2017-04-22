@@ -16,7 +16,6 @@ import axios from 'axios';
 import Chip from 'material-ui/Chip';
 import Dialog from 'material-ui/Dialog';
 import dateFormat from 'dateformat';
-import url from './../config/config.js';
 
 let SelectableList = makeSelectable(List);
 function wrapState(ComposedComponent) {
@@ -85,7 +84,7 @@ export default class TaskList extends React.Component {
         this.setState({open: false});
         var self = this;
 
-        axios.put(url + "api/task/update/" + this.state.taskSelect.id,taskSelect).then(function(response) {
+        axios.put("api/task/update/" + this.state.taskSelect.id,taskSelect).then(function(response) {
             console.log(response.data);
             self.loadtaskAll();
         }).catch(function(error) {
@@ -100,7 +99,7 @@ export default class TaskList extends React.Component {
     };
     componentWillMount() {
         var self = this
-        axios.get(url + 'api/task/all').then(function(response) {
+        axios.get('api/task/all').then(function(response) {
             // this.programmerList=response;
             console.log(response.data);
             self.setState({taskList: response.data})
@@ -115,7 +114,7 @@ export default class TaskList extends React.Component {
 
     loadtaskAll(){
       var self = this
-      axios.get(url + 'api/task/all').then(function(response) {
+      axios.get('api/task/all').then(function(response) {
           // this.programmerList=response;
           console.log(response.data);
           self.setState({taskList: response.data})
@@ -131,7 +130,7 @@ export default class TaskList extends React.Component {
         var self = this;
 
         //console.log(self);
-        axios.get(url + "api/task/tid/" + id).then(function(response) {
+        axios.get("api/task/tid/" + id).then(function(response) {
             // this.programmerList=response;
             //console.log(response.data);
             self.taskSelect = response.data;
@@ -141,7 +140,7 @@ export default class TaskList extends React.Component {
             console.log(error);
         });
 
-        axios.get(url + 'api/programmer').then(function(response) {
+        axios.get('api/programmer').then(function(response) {
             // this.programmerList=response;
             //console.log(response.data[0].user_name);
             //console.log(self.state);

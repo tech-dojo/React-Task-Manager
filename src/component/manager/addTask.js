@@ -7,7 +7,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import axios from 'axios';
-import url from './../config/config.js';
 var retrievUser = JSON.parse(localStorage.getItem('localStore'))
 
 export default class AddTask extends React.Component {
@@ -67,7 +66,7 @@ export default class AddTask extends React.Component {
         }
         var self = this;
         console.log(userData);
-        axios.post(url + 'api/task/create',userData).then(function(response) {
+        axios.post('api/task/create',userData).then(function(response) {
             console.log(response.data);
             self.props.loadtaskAll();
            self.setState({open: false});
@@ -81,7 +80,7 @@ export default class AddTask extends React.Component {
     handleOpen = () => {
     //  console.log(this.state);
     var self = this;
-        axios.get(url +'api/programmer').then(function(response) {
+        axios.get('api/programmer').then(function(response) {
             // this.programmerList=response;
             console.log(response.data[0].user_name);
             //console.log(self.state);

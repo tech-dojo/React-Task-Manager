@@ -6,7 +6,6 @@ import MenuItem from 'material-ui/MenuItem';
 import {orange500, red300, blue500} from 'material-ui/styles/colors';
 import axios from 'axios';
 import Paper from 'material-ui/Paper';
-import url from './../config/config.js';
 
 export default class CreateUser extends React.Component {
     constructor(props) {
@@ -73,7 +72,8 @@ export default class CreateUser extends React.Component {
     handleSubmit(event) {
         console.log(this.userData);
         this.userData[event.target] = null;
-        axios.post(url + 'api/user/create', {
+      //  console.log(url);
+        axios.post('api/user/create', {
             user_name: this.state.user_name,
             password: this.state.password,
             user_type: this.state.user_type

@@ -21,7 +21,6 @@ import axios from 'axios';
 import Chip from 'material-ui/Chip';
 import dateFormat from 'dateformat';
 //import SearchBar from 'react-search-bar'
-import url from './../config/config.js';
 
 let SelectableList = makeSelectable(List);
 function wrapState(ComposedComponent) {
@@ -73,7 +72,7 @@ export default class ProgrammerTask extends React.Component {
     componentWillMount() {
         var retrievUser = JSON.parse(localStorage.getItem('localStore'));
         var self = this
-        axios.get(url + "api/taskP/" + retrievUser.user_name).then(function(response) {
+        axios.get("api/taskP/" + retrievUser.user_name).then(function(response) {
             // this.programmerList=response;
             console.log(response.data);
             self.setState({taskList: response.data})
@@ -87,7 +86,7 @@ export default class ProgrammerTask extends React.Component {
         var self = this;
 
         //console.log(self);
-        axios.get(url + "api/task/tid/" + id).then(function(response) {
+        axios.get("api/task/tid/" + id).then(function(response) {
             // this.programmerList=response;
             //console.log(response.data);
             self.taskSelect = response.data;
@@ -134,7 +133,7 @@ export default class ProgrammerTask extends React.Component {
         }
 
         var self = this;
-        axios.put(url + "api/task/update/" + task.task_id, taskSelect).then(function(response) {
+        axios.put("api/task/update/" + task.task_id, taskSelect).then(function(response) {
             console.log(response.data);
             self.setState({taskSelect: taskSelect});
 
@@ -152,7 +151,7 @@ export default class ProgrammerTask extends React.Component {
     loadtaskAll() {
         var retrievUser = JSON.parse(localStorage.getItem('localStore'));
         var self = this
-        axios.get(url + "api/taskP/" + retrievUser.user_name).then(function(response) {
+        axios.get("api/taskP/" + retrievUser.user_name).then(function(response) {
             // this.programmerList=response;
             console.log(response.data);
             self.setState({taskList: response.data})
