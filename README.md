@@ -6,7 +6,9 @@ React Task Management is a simple task manager built with react,material-ui,and 
   - Manager assigns tasks to Programmers.
   - Programmers Starts/Finishes a task.
   - The task is recorded with completion time.
-
+## Demo 
+[App demo](https://quiet-sea-75197.herokuapp.com/)
+create a manager and a programmer before using.
 ### Installation
 
 Install the dependencies and devDependencies and start the server.
@@ -25,7 +27,7 @@ For production environments...
 $ npm install
 $ npm run build
 $ npm run production
-
+```
 ### Todos
 
  - Task Reporting.
@@ -34,3 +36,5 @@ $ npm run production
  - Task Search.
  - Stronger User authentication.
 ```
+
+> **Tip:** To make sure mathematical expressions are rendered properly on your website, include **MathJax** into your template:
