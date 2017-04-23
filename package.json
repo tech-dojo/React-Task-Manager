@@ -7,7 +7,7 @@
     "build" :"webpack --config webpack.config.production.js",
     "production":"node production-server.js",
     "development":"node dev-server.js",
-    "start": "npm run build && npm run production",
+    "start": "npm run production",
     "lint": "eslint src"
   },
   "repository": {
