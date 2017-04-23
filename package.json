@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node production-server.js",
-    "lint": "eslint src"
+    "build" :"webpack --config webpack.config.production.js",
+    "production":"node production-server.js",
+    "development":"node dev-server.js",
+    "start": "npm run build && npm run production"
   },
   "repository": {
     "type": "git",

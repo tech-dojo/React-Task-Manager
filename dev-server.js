@@ -5,8 +5,8 @@ var Sequelize = require('sequelize');
 var path = require('path');
 var cors = require('cors')
 var bodyparser = require('body-parser');
-var sequelize = new Sequelize('postgres://shoque:perPER987123@localhost:5432/shoque');
-
+var dbConfig = require('./config');
+var sequelize = new Sequelize(dbConfig.db_url_development);
 var User = sequelize.define('user', {
     id: {
         type: Sequelize.BIGINT,
@@ -60,7 +60,7 @@ var server = new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   hot: true,
   historyApiFallback: true,
-  contentBase: "./public",
+contentBase: "/path/to/directory",
   setup: function(app) {
     app.use(bodyparser.urlencoded({extended: false}));
     app.use(bodyparser.json());

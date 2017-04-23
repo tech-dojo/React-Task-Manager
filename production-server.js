@@ -2,17 +2,14 @@ var express = require('express');
 var Sequelize = require('sequelize');
 var path = require('path');
 var app = express();
-//var sequelize = new Sequelize('postgres://muhib68:td123@localhost:5432/project_db');
-//postgres://idhtsbjpftqiam:d22dd1e1bab55dc2c9bcc3b5fbc3819989ce38ce35a6a6ccc066b1b724df07ef@ec2-54-221-254-72.compute-1.amazonaws.com:5432/d1gppuj36flrk7
-//postgres://shoque:perPER987123@localhost:5432/shoque
-var sequelize = new Sequelize('postgres://idhtsbjpftqiam:d22dd1e1bab55dc2c9bcc3b5fbc3819989ce38ce35a6a6ccc066b1b724df07ef@ec2-54-221-254-72.compute-1.amazonaws.com:5432/d1gppuj36flrk7');
+var dbConfig = require('./config');
+var sequelize = new Sequelize(dbConfig.db_url_production);
 var cors = require('cors')
 var bodyparser = require('body-parser');
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
 app.use(cors());
 app.use(express.static('public'));
-
 var User = sequelize.define('user', {
     id: {
         type: Sequelize.BIGINT,
@@ -71,7 +68,6 @@ app.post('/api/user/create', function(req, res) {
         res.json(error.errors);
     })
 });
-
 app.post('/api/user/signin', function(req, res) {
     User.findOne({
         where: {
