@@ -12,7 +12,6 @@ import axios from 'axios';
 const style = {
   margin: 8,
 };
-import url from './../config/config.js';
 
 export default class ManagerView extends React.Component {
 
