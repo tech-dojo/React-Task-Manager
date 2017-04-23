@@ -60,7 +60,7 @@ var server = new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   hot: true,
   historyApiFallback: true,
-contentBase: "/path/to/directory",
+  contentBase: "./public",
   setup: function(app) {
     app.use(bodyparser.urlencoded({extended: false}));
     app.use(bodyparser.json());
