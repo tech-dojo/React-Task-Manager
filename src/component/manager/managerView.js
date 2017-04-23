@@ -5,16 +5,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
-import FlatButton from 'material-ui/FlatButton';
 import Menu from 'material-ui/Menu';
 import {Link} from 'react-router';
 import axios from 'axios';
+
 const style = {
   margin: 8,
 };
 
 export default class ManagerView extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -37,8 +36,6 @@ export default class ManagerView extends React.Component {
     handleProgrammer = () => {
         this.setState({open: false});
         axios.get(url + 'api/programmer').then(function(response) {
-            // this.programmerList=response;
-            console.log(response.data);
         }).catch(function(error) {
             console.log(error);
         })
@@ -47,8 +44,6 @@ export default class ManagerView extends React.Component {
     handleTask = () => {
         this.setState({open: false});
         axios.get(url + 'api/task/all').then(function(response) {
-            // this.programmerList=response;
-            console.log(response.data);
         }).catch(function(error) {
             console.log(error);
         })
@@ -67,7 +62,6 @@ export default class ManagerView extends React.Component {
                         <MenuItem onTouchTap={this.handleSignOut}>Sign Out</MenuItem>
                     </Link>
                     <Divider/>
-
                 </Drawer>
                 {this.props.children}
             </div>

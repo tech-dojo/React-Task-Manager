@@ -1,9 +1,6 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import {orange500, red300, blue500} from 'material-ui/styles/colors';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import Paper from 'material-ui/Paper';
@@ -13,10 +10,8 @@ export default class UserSignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        //  this.state.userData = {}
         this.state.user_name = "";
         this.state.password = "";
-        //  this.state.user_type = "";;
         this.userData = {};
 
         this.state.disable=true;
@@ -26,25 +21,16 @@ export default class UserSignIn extends React.Component {
 
     handleChange(event) {
         this.userData[event.target.name] = event.target.value;
-
-
         if (this.userData.user_name=="" || this.userData.user_name==undefined
           || this.userData.password == "" || this.userData.password == undefined) {
             this.userData['disable'] = true;
         } else {
             this.userData['disable'] = false;
         }
-
-        console.log(this.userData);
         this.setState(this.userData);
     }
 
-    //
-    // isConfirmedPassword(event) {
-    //   return (event.target.value === this.state.password)
-    // }
     handleSubmit(event) {
-        console.log(this.state);
         this.userData[event.target] = null;
           axios.post('api/user/signin', {
               user_name: this.state.user_name,
@@ -52,7 +38,6 @@ export default class UserSignIn extends React.Component {
           }).then(function(response) {
             var localStore={'user_name':response.data.user_name, 'user_type':response.data.user_type};
             localStorage.setItem('localStore', JSON.stringify(localStore))
-            console.log(response);
             if(response.data.user_type==="Manager"){
               browserHistory.push('/')
             }
@@ -61,8 +46,6 @@ export default class UserSignIn extends React.Component {
             }else{
               console.log("User Name or Password Mismatch");
             }
-            console.log(response.data.user_name);
-
           }).catch(function(error) {
               console.log(error);
           })
@@ -106,16 +89,16 @@ const styles = {
         float: "center"
     },
     errorStyle: {
-        color: red300
+        color: "#E57373"
     },
     underlineStyle: {
-        borderColor: orange500
+        borderColor: "#FF9800"
     },
     floatingLabelStyle: {
-        color: orange500
+        color: "#FF9800"
     },
     floatingLabelFocusStyle: {
-        color: blue500
+        color: "#2196F3"
     },
     paperOne: {
         height: '100%',

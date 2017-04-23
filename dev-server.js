@@ -101,9 +101,7 @@ var server = new WebpackDevServer(webpack(config), {
 
 
     app.get('/api/user/:ID', function(req, res) {
-
         var id = req.params.ID;
-
         User.findById(id).then(function(user) {
             res.json(user);
         })
@@ -120,7 +118,6 @@ var server = new WebpackDevServer(webpack(config), {
     });
 
     app.post('/api/task/create', function(req, res) {
-        // console.log(req.body);
         Task.create({task_id: new Date().valueOf(), created_by: req.body.created_by, task_name: req.body.task_name, assigned_to: req.body.assigned_to, estimated_time: req.body.estimated_time}).then(function(task) {
             res.json(task);
         })
@@ -129,10 +126,7 @@ var server = new WebpackDevServer(webpack(config), {
 
     app.put('/api/task/update/:t_ID', function(req, res) {
         var tid = req.params.t_ID;
-        // console.log(req.body.user_type);
-        console.log("checking for UPDATE params");
-        console.log(req.body);
-        console.log(req.params);
+
         Task.update({
             task_name: req.body.task_name,
             assigned_to: req.body.assigned_to,

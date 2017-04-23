@@ -92,9 +92,7 @@ app.get('/api/user/all', function(req, res) {
 
 
 app.get('/api/user/:ID', function(req, res) {
-
     var id = req.params.ID;
-
     User.findById(id).then(function(user) {
         res.json(user);
     })

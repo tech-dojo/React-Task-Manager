@@ -1,15 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
 import AddTask from './addTask.js'
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
 import Avatar from 'material-ui/Avatar';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
 import {Flex, Grid} from 'reflexbox'
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
-import {blue600, blue500, red500, greenA200} from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 import axios from 'axios';
@@ -46,10 +42,8 @@ function wrapState(ComposedComponent) {
 SelectableList = wrapState(SelectableList);
 
 export default class TaskList extends React.Component {
-
     constructor(props) {
         super(props);
-
         this.state = {
             open: false,
             taskList: [],
@@ -65,27 +59,20 @@ export default class TaskList extends React.Component {
     };
 
     handleOpen = () => {
-
         this.setState({open: true});
-
     };
 
     handleSubmit(event) {
-      //  console.log(this.state.taskSelect);
-      //  this.state.taskSelect[event.target] = null;
         var taskSelect = {
             task_name: this.state.taskSelect.task_name,
             assigned_to: this.state.taskSelect.assigned_to,
             estimated_time: this.state.taskSelect.estimated_time
-
         }
-        console.log(this.state.taskList);
-
+        
         this.setState({open: false});
         var self = this;
 
         axios.put("api/task/update/" + this.state.taskSelect.id,taskSelect).then(function(response) {
-            console.log(response.data);
             self.loadtaskAll();
         }).catch(function(error) {
             console.log(error);
@@ -100,39 +87,27 @@ export default class TaskList extends React.Component {
     componentWillMount() {
         var self = this
         axios.get('api/task/all').then(function(response) {
-            // this.programmerList=response;
-            console.log(response.data);
             self.setState({taskList: response.data})
         }).catch(function(error) {
             console.log(error);
         })
-        //console.log("find me");
         var retrievUser = JSON.parse(localStorage.getItem('localStore'));
-        //console.log('retrievUser: ', retrievUser);
-
     }
 
     loadtaskAll(){
       var self = this
       axios.get('api/task/all').then(function(response) {
-          // this.programmerList=response;
-          console.log(response.data);
           self.setState({taskList: response.data})
       }).catch(function(error) {
           console.log(error);
       })
-      //console.log("find me");
       var retrievUser = JSON.parse(localStorage.getItem('localStore'));
     }
 
     handleTouchTap = (id) => {
-        console.log(id);
         var self = this;
 
-        //console.log(self);
         axios.get("api/task/tid/" + id).then(function(response) {
-            // this.programmerList=response;
-            //console.log(response.data);
             self.taskSelect = response.data;
             self.taskSelect.id= id;
             self.setState({taskSelect: response.data})
@@ -141,55 +116,20 @@ export default class TaskList extends React.Component {
         });
 
         axios.get('api/programmer').then(function(response) {
-            // this.programmerList=response;
-            //console.log(response.data[0].user_name);
-            //console.log(self.state);
             self.setState({programmerList: response.data, open: true});
-            //console.log(self);
         }).catch(function(error) {
             console.log(error);
         });
     }
     handleChange(event) {
         this.state.taskSelect[event.target.name] = event.target.value;
-        // if (this.userData.task_name == "" || this.userData.task_name == undefined
-        // || this.userData.assigned_to == "" || this.userData.assigned_to == undefined
-        // || this.userData.estimated_time == "" || this.userData.estimated_time == undefined) {
-        //     this.userData['disable'] = true;
-        // } else {
-        //     this.userData['disable'] = false;
-        // }
-
-      //  console.log(this.userData);
         this.setState(
           {taskSelect : this.state.taskSelect}
         );
-  //    console.log(this.state.taskSelect);
     }
     handleChangeForSelect(event, index, value) {
-        //  console.log(value);
-        //    this.userData["assigned_wto"] = value;
-        // if (this.userData.task_name == "" || this.userData.task_name == undefined
-        // || this.userData.assigned_to == "" || this.userData.assigned_to == undefined
-        // || this.userData.estimated_time == "" || this.userData.estimated_time == undefined) {
-        //     this.userData['disable'] = true;
-        // } else {
-        //     this.userData['disable'] = false;
-        // }
-        //    this.taskSelect.assigned_to = value;
-        //console.log(this.state);
-        // var taskObject =  {
-        //   task_name : this.state.state.taskSelect.task_name,
-        //   estimated_time : this.state.state.taskSelect.estimated_time,
-        //   assigned_to : value
-        //
-        //
-        // }
-        //  console.log(t)
         this.state.taskSelect.assigned_to = value;
         this.setState({taskSelect : this.state.taskSelect});
-    //    console.log(this.state);
-        //this.setState({taskSelect : taskObject });
     };
     render() {
         const actions = [ < FlatButton label = "Cancel" primary = {
@@ -219,7 +159,7 @@ export default class TaskList extends React.Component {
                             <AddTask loadtaskAll = {this.loadtaskAll}/>
                             {this.state.taskList.map((task) => {
                                 return <ListItem key={task.task_id} leftAvatar={< Avatar icon = { < ActionAssignment />}
-                                          backgroundColor = {blue500  } />}
+                                          backgroundColor = {"#2196F3"  } />}
                                           onTouchTap={this.handleTouchTap.bind(this, task.task_id)}>
 
                                           <label style={{fontWeight: 'bold', color: '#006064' , fontSize:25}}>{task.task_name}</label>

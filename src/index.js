@@ -5,7 +5,7 @@ import ManagerView  from './component/manager/managerView.js'
 import ProgrammerModel from './component/programmer/programmerModel'
 import ProgrammerTask from './component/programmer/programmerTask.js';
 import TaskList from './component/manager/taskList.js';
-import {Link, browserHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 import {Router, Route, IndexRoute} from 'react-router';
 import CreateUser from './component/manager/createuser.js';
 import UserSignIn from './component/manager/userSignin.js';
@@ -24,9 +24,9 @@ function isProgrammer(retrievUser)
 {
   return retrievUser.user_type==="Programmer"
 }
+
 function requireAuth(nextState, replace) {
   var retrievUser = JSON.parse(localStorage.getItem('localStore'));
-  console.log('retrievUser: ', retrievUser);
     if (retrievUser=== undefined || retrievUser===null) {
       replace({
         pathname: '/userSignin'
@@ -42,7 +42,6 @@ function requireAuth(nextState, replace) {
 function requireAuthBeta(nextState, replace) {
 
   var retrievUser = JSON.parse(localStorage.getItem('localStore'));
-  console.log('retrievUser: ', retrievUser);
 
     if (retrievUser=== undefined || retrievUser===null) {
       replace({
@@ -56,17 +55,9 @@ function requireAuthBeta(nextState, replace) {
       }
 }
 
-// const UserSpecify = () => (function requireAuthBeta(nextState, replace) {
-//     // if (loggedIn()!=="Manager") {
-//     //   replace({
-//     //     pathname: '/userSignin'
-//     //   })
-//     // }
-// }
 injectTapEventPlugin();
 
 const App = () => {
-
     return (
         <MuiThemeProvider>
             <Router history={browserHistory}>

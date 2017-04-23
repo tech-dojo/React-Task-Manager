@@ -1,26 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
-import ActionAssignment from 'material-ui/svg-icons/action/assignment';
-import AvPlayCircleOutline from 'material-ui/svg-icons/av/play-circle-outline';
-import ActionSearch from 'material-ui/svg-icons/action/search';
-import ActionSchedule from 'material-ui/svg-icons/action/schedule';
-import ActionDone from 'material-ui/svg-icons/action/done';
-import ActionLaunch from 'material-ui/svg-icons/action/launch';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
-import {Flex, Grid} from 'reflexbox'
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import {blue800, blue500, red500, greenA200} from 'material-ui/styles/colors';
-import TextField from 'material-ui/TextField';
-import Dialog from 'material-ui/Dialog';
+import {Flex} from 'reflexbox'
 import axios from 'axios';
 import Chip from 'material-ui/Chip';
 import dateFormat from 'dateformat';
-//import SearchBar from 'react-search-bar'
+
 
 let SelectableList = makeSelectable(List);
 function wrapState(ComposedComponent) {
@@ -73,22 +61,15 @@ export default class ProgrammerTask extends React.Component {
         var retrievUser = JSON.parse(localStorage.getItem('localStore'));
         var self = this
         axios.get("api/taskP/" + retrievUser.user_name).then(function(response) {
-            // this.programmerList=response;
-            console.log(response.data);
             self.setState({taskList: response.data})
         }).catch(function(error) {
             console.log(error);
         })
     }
     handleTouchTap = (id) => {
-        console.log(id);
-        console.log(id);
         var self = this;
 
-        //console.log(self);
         axios.get("api/task/tid/" + id).then(function(response) {
-            // this.programmerList=response;
-            //console.log(response.data);
             self.taskSelect = response.data;
             self.taskSelect.id = id;
             self.setState({taskSelect: response.data, open: true})
@@ -99,34 +80,19 @@ export default class ProgrammerTask extends React.Component {
     }
 
     handleSubmit(event) {
-        //  console.log(this.state.taskSelect);
-        //  this.state.taskSelect[event.target] = null;
         var taskSelect = {
             started_on: this.state.started,
             completed_on: this.state.done
         }
-        //console.log(this.state.taskList);
-        // var index = 0;
-        // for(var i =0 ;i<this.state.taskList.length;i++){
-        //   if(this.state.taskList[i].task_id==this.state.taskSelect.id){
-        //     index = i;
-        //   }
-        // }
-        // this.state.taskList[index] = this.state.taskSelect;
-        //     this.setState({taskList:this.state.taskList,  open: false});
         this.setState({open: false});
         var self = this;
-
-        console.log(taskSelect);
     }
     handleStart(task) {
-        console.log(task);
         if (task.started_on == null || task.started_on == undefined || task.started_on == "") {
             var taskSelect = {
                 started_on: new Date()
             }
         } else {
-            console.log("entered ekse");
             var taskSelect = {
                 completed_on: new Date()
             }
@@ -134,9 +100,7 @@ export default class ProgrammerTask extends React.Component {
 
         var self = this;
         axios.put("api/task/update/" + task.task_id, taskSelect).then(function(response) {
-            console.log(response.data);
             self.setState({taskSelect: taskSelect});
-
             self.loadtaskAll();
         }).catch(function(error) {
             console.log(error);
@@ -145,20 +109,16 @@ export default class ProgrammerTask extends React.Component {
     }
     handleFinish(id) {
         this.setState({done: new Date()});
-
     }
 
     loadtaskAll() {
         var retrievUser = JSON.parse(localStorage.getItem('localStore'));
         var self = this
         axios.get("api/taskP/" + retrievUser.user_name).then(function(response) {
-            // this.programmerList=response;
-            console.log(response.data);
             self.setState({taskList: response.data})
         }).catch(function(error) {
             console.log(error);
         })
-
     }
 
     render() {
@@ -187,7 +147,7 @@ export default class ProgrammerTask extends React.Component {
                             </h1>
                             {this.state.taskList.map((task) => {
                                 return <ListItem key={task.task_id}
-                                          leftAvatar={< Avatar icon = { < ActionAssignment />  }  backgroundColor = {blue500}/>}
+                                          leftAvatar={< Avatar icon = { < ActionAssignment />  }  backgroundColor = {"#2196F3"}/>}
                                           rightIcon={<RaisedButton disabled ={task.completed_on == undefined || null || ""
                                               ? false
                                               : true} label={task.started_on == undefined || null || ""
@@ -221,11 +181,7 @@ export default class ProgrammerTask extends React.Component {
     }
 };
 const iconStyles = {
-    //marginRight: 24,
-    //verticalAlign: "middle",
-    //horizontalAlign: "middle",
     size: 300
-
 };
 
 var styles = {

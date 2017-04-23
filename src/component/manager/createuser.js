@@ -3,7 +3,6 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import {orange500, red300, blue500} from 'material-ui/styles/colors';
 import axios from 'axios';
 import Paper from 'material-ui/Paper';
 import { browserHistory } from 'react-router';
@@ -12,16 +11,13 @@ export default class CreateUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        //  this.state.userData = {}
         this.state.user_name = "";
         this.state.password = "";
         this.state.confirm_password = "";
-        //  this.state.user_type = "";
         this.state = {
             user_type: ""
         };
         this.userData = {};
-
         this.state.disable = true;
         this.state.errorText = "";
         this.handleChange = this.handleChange.bind(this);
@@ -31,7 +27,6 @@ export default class CreateUser extends React.Component {
 
     handleChange(event) {
         this.userData[event.target.name] = event.target.value;
-
         if (this.userData.password !== this.userData.confirm_password) {
             this.userData['errorText'] = "password mismatch";
         } else {
@@ -47,12 +42,9 @@ export default class CreateUser extends React.Component {
         } else {
             this.userData['disable'] = false;
         }
-
-        console.log(this.userData);
         this.setState(this.userData);
     }
     handleChangeForSelect(event, index, value) {
-        //  var userData = {};
         this.userData["user_type"] = value;
         if (this.userData.password !== this.userData.confirm_password
           || this.userData.user_name == "" || this.userData.user_name == undefined
@@ -66,21 +58,14 @@ export default class CreateUser extends React.Component {
         this.setState(this.userData);
     }
 
-    //
-    // isConfirmedPassword(event) {
-    //   return (event.target.value === this.state.password)
-    // }
     handleSubmit(event) {
-        console.log(this.userData);
         this.userData[event.target] = null;
-      //  console.log(url);
         axios.post('api/user/create', {
             user_name: this.state.user_name,
             password: this.state.password,
             user_type: this.state.user_type
         }).then(function(response) {
           browserHistory.push('/userSignin');
-            console.log(response);
         }).catch(function(error) {
             console.log(error);
         })
@@ -128,7 +113,7 @@ const styles = {
         float: "center",
     },
     errorStyle: {
-        color: red300
+        color: "#E57373"
     },
     about: {
         textalign: 'center',
@@ -143,13 +128,13 @@ const styles = {
         margintop: 30
     },
     underlineStyle: {
-        borderColor: orange500
+        borderColor: "#FF9800"
     },
     floatingLabelStyle: {
-        color: orange500
+        color: "#FF9800"
     },
     floatingLabelFocusStyle: {
-        color: blue500
+        color: "#2196F3"
     },
     paperOne: {
         height: '100%',

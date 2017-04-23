@@ -5,7 +5,6 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import DatePicker from 'material-ui/DatePicker';
 import axios from 'axios';
 
 export default class AddTask extends React.Component {
@@ -25,7 +24,6 @@ export default class AddTask extends React.Component {
           }
         };
         this.task = {};
-        console.log(this.state);
         this.userData = {};
         this.userData.programmerList = [];
         this.state.disable = true;
@@ -41,7 +39,6 @@ export default class AddTask extends React.Component {
         });
     }
     handleSubmit(event) {
-        console.log(this.state);
         this.userData[event.target] = null;
         var userData = {
           created_by: this.retrievUser.user_name,
@@ -53,7 +50,6 @@ export default class AddTask extends React.Component {
         axios.post('api/task/create',userData).then(function(response) {
             self.props.loadtaskAll();
            self.setState({open: false});
-
         }).catch(function(error) {
             console.log(error);
         })
@@ -63,7 +59,6 @@ export default class AddTask extends React.Component {
     handleOpen = () => {
     var self = this;
         axios.get('api/programmer').then(function(response) {
-            console.log(response.data[0].user_name);
             self.setState({programmerList:response.data, open:true});
         }).catch(function(error) {
             console.log(error);
@@ -76,7 +71,6 @@ export default class AddTask extends React.Component {
     };
 
     handleChangeForSelect(event, index, value) {
-      console.log(value);
         this.task.programmerSelected = value;
         this.setState({task : this.task});
     };
