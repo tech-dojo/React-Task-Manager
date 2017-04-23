@@ -189,5 +189,4 @@ app.put('/api/user/update/:ID', function(req, res) {
 
 User.sync({force: false});
 Task.sync({force: false});
-export default app;
 app.listen(process.env.PORT || 3080);
