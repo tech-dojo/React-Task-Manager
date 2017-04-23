@@ -17,9 +17,9 @@ export default class AddTask extends React.Component {
           userData : {},
           open:false,
           task : {
-            programmerSelected:"",
-            task_name: "",
-            estimated_time: ""
+            programmerSelected:'',
+            task_name: '',
+            estimated_time: ''
 
           }
         };
@@ -98,7 +98,7 @@ export default class AddTask extends React.Component {
                 <Dialog title="Enter Task Info" actions={actions} modal={false} open={this.state.open} autoScrollBodyContent={true} onRequestClose={this.handleClose}>
                     <form>
                         <TextField name="task_name" hintText="Task name" floatingLabelText="Task Name" onChange={this.handleChange}/><br/>
-                        <TextField name="estimated_time" hintText="Estimated Time" floatingLabelText="Estimated Time" onChange={this.handleChange}/><br/>
+                        <TextField type="number" name="estimated_time" hintText="Estimated Time" floatingLabelText="Estimated Time" onChange={this.handleChange}/><br/>
                         <SelectField floatingLabelText="Select Programmer" value={this.state.task.programmerSelected} name="assigned_to" onChange={this.handleChangeForSelect}>
 
                               {this.state.programmerList.map((programmer)=>{

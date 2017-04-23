@@ -10,10 +10,9 @@ export default class UserSignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        this.state.user_name = "";
-        this.state.password = "";
+        this.state.user_name = '';
+        this.state.password = '';
         this.userData = {};
-
         this.state.disable=true;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,8 +20,8 @@ export default class UserSignIn extends React.Component {
 
     handleChange(event) {
         this.userData[event.target.name] = event.target.value;
-        if (this.userData.user_name=="" || this.userData.user_name==undefined
-          || this.userData.password == "" || this.userData.password == undefined) {
+        if (this.userData.user_name=='' || this.userData.user_name==undefined
+          || this.userData.password == '' || this.userData.password == undefined) {
             this.userData['disable'] = true;
         } else {
             this.userData['disable'] = false;
@@ -38,13 +37,13 @@ export default class UserSignIn extends React.Component {
           }).then(function(response) {
             var localStore={'user_name':response.data.user_name, 'user_type':response.data.user_type};
             localStorage.setItem('localStore', JSON.stringify(localStore))
-            if(response.data.user_type==="Manager"){
+            if(response.data.user_type==='Manager'){
               browserHistory.push('/')
             }
-            else if(response.data.user_type==="Programmer"){
-              browserHistory.push('/programmerModel')
+            else if(response.data.user_type==='Programmer'){
+              browserHistory.push('/programmerModel');
             }else{
-              console.log("User Name or Password Mismatch");
+              console.log('User Name or Password Mismatch');
             }
           }).catch(function(error) {
               console.log(error);
@@ -86,27 +85,27 @@ const styles = {
         padding: 20,
         textAlign: 'center',
         width: '96%',
-        float: "center"
+        float: 'center'
     },
     errorStyle: {
-        color: "#E57373"
+        color: '#E57373'
     },
     underlineStyle: {
-        borderColor: "#FF9800"
+        borderColor: '#FF9800'
     },
     floatingLabelStyle: {
-        color: "#FF9800"
+        color: '#FF9800'
     },
     floatingLabelFocusStyle: {
-        color: "#2196F3"
+        color: '#2196F3'
     },
     paperOne: {
         height: '100%',
         textAlign: 'center',
         padding: 10,
         margin: 10,
-        float: "center",
-        backgroundColor:"#E0F7FA",
+        float: 'center',
+        backgroundColor:'#E0F7FA',
     },
     paperRight: {
         height: 600,

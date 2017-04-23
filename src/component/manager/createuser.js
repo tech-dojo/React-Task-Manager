@@ -11,15 +11,15 @@ export default class CreateUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        this.state.user_name = "";
-        this.state.password = "";
-        this.state.confirm_password = "";
+        this.state.user_name = '';
+        this.state.password = '';
+        this.state.confirm_password = '';
         this.state = {
-            user_type: ""
+            user_type: ''
         };
         this.userData = {};
         this.state.disable = true;
-        this.state.errorText = "";
+        this.state.errorText = '';
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChangeForSelect = this.handleChangeForSelect.bind(this);
@@ -28,16 +28,16 @@ export default class CreateUser extends React.Component {
     handleChange(event) {
         this.userData[event.target.name] = event.target.value;
         if (this.userData.password !== this.userData.confirm_password) {
-            this.userData['errorText'] = "password mismatch";
+            this.userData['errorText'] = 'password mismatch';
         } else {
-            this.userData['errorText'] = "";
+            this.userData['errorText'] = '';
         }
 
         if (this.userData.password !== this.userData.confirm_password
-          || this.userData.user_name == "" || this.userData.user_name == undefined
+          || this.userData.user_name == '' || this.userData.user_name == undefined
           || this.userData.user_type == null
-          || this.userData.password == "" || this.userData.password == undefined
-          || this.userData.confirm_password == "" || this.userData.confirm_password == undefined) {
+          || this.userData.password == '' || this.userData.password == undefined
+          || this.userData.confirm_password == '' || this.userData.confirm_password == undefined) {
             this.userData['disable'] = true;
         } else {
             this.userData['disable'] = false;
@@ -45,12 +45,12 @@ export default class CreateUser extends React.Component {
         this.setState(this.userData);
     }
     handleChangeForSelect(event, index, value) {
-        this.userData["user_type"] = value;
+        this.userData['user_type'] = value;
         if (this.userData.password !== this.userData.confirm_password
-          || this.userData.user_name == "" || this.userData.user_name == undefined
+          || this.userData.user_name == '' || this.userData.user_name == undefined
           || this.userData.user_type == null
-          || this.userData.password == "" || this.userData.password == undefined
-          || this.userData.confirm_password == "" || this.userData.confirm_password == undefined) {
+          || this.userData.password == '' || this.userData.password == undefined
+          || this.userData.confirm_password == '' || this.userData.confirm_password == undefined) {
             this.userData['disable'] = true;
         } else {
             this.userData['disable'] = false;
@@ -110,10 +110,10 @@ const styles = {
         textAlign: 'center',
         width: '96%',
         border: '3px',
-        float: "center",
+        float: 'center',
     },
     errorStyle: {
-        color: "#E57373"
+        color: '#E57373'
     },
     about: {
         textalign: 'center',
@@ -128,13 +128,13 @@ const styles = {
         margintop: 30
     },
     underlineStyle: {
-        borderColor: "#FF9800"
+        borderColor: '#FF9800'
     },
     floatingLabelStyle: {
-        color: "#FF9800"
+        color: '#FF9800'
     },
     floatingLabelFocusStyle: {
-        color: "#2196F3"
+        color: '#2196F3'
     },
     paperOne: {
         height: '100%',
@@ -142,7 +142,7 @@ const styles = {
         padding: 10,
         margin: 10,
         width: '100%',
-        float: "center",
-        backgroundColor:"#E0F7FA",
+        float: 'center',
+        backgroundColor:'#E0F7FA',
     }
 };

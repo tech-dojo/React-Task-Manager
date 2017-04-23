@@ -35,7 +35,7 @@ export default class ManagerView extends React.Component {
 
     handleProgrammer = () => {
         this.setState({open: false});
-        axios.get(url + 'api/programmer').then(function(response) {
+        axios.get('api/programmer').then(function(response) {
         }).catch(function(error) {
             console.log(error);
         })
@@ -43,7 +43,7 @@ export default class ManagerView extends React.Component {
 
     handleTask = () => {
         this.setState({open: false});
-        axios.get(url + 'api/task/all').then(function(response) {
+        axios.get('api/task/all').then(function(response) {
         }).catch(function(error) {
             console.log(error);
         })
@@ -52,7 +52,7 @@ export default class ManagerView extends React.Component {
     render() {
         return (
             <div>
-                <AppBar title="PROJECT MANAGEMENT" onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={< Link to = "/userSignin" > <RaisedButton   label = {JSON.parse(localStorage.getItem('localStore')).user_name +"(sign out)"} style={style} /> </Link>}/>
+                <AppBar title="PROJECT MANAGEMENT" onLeftIconButtonTouchTap={this.handleToggle} iconElementRight={< Link to = "/userSignin" > <RaisedButton   label = {JSON.parse(localStorage.getItem('localStore')).user_name +'(sign out)'} style={style} /> </Link>}/>
                 <Drawer docked={false} width={300} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
                     <Link to="/">
                         <MenuItem onTouchTap={this.handleTask}>Task</MenuItem>

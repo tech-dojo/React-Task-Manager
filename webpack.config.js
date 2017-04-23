@@ -1,7 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var BUILD_DIR = path.resolve(__dirname, './dist');
-
 module.exports = {
   devtool: 'eval',
   entry: [
@@ -9,7 +7,8 @@ module.exports = {
   ],
   output: {
     path: __dirname + '/public/js' ,
-    filename: 'rmgbund.js'
+    filename: 'bundle.js',
+    publicPath: '/js/'
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
   module: {

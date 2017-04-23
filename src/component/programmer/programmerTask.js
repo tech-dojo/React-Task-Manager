@@ -7,6 +7,7 @@ import {List, ListItem, makeSelectable} from 'material-ui/List';
 import {Flex} from 'reflexbox'
 import axios from 'axios';
 import Chip from 'material-ui/Chip';
+import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import dateFormat from 'dateformat';
 
 
@@ -60,7 +61,7 @@ export default class ProgrammerTask extends React.Component {
     componentWillMount() {
         var retrievUser = JSON.parse(localStorage.getItem('localStore'));
         var self = this
-        axios.get("api/taskP/" + retrievUser.user_name).then(function(response) {
+        axios.get('api/taskP/' + retrievUser.user_name).then(function(response) {
             self.setState({taskList: response.data})
         }).catch(function(error) {
             console.log(error);
@@ -69,7 +70,7 @@ export default class ProgrammerTask extends React.Component {
     handleTouchTap = (id) => {
         var self = this;
 
-        axios.get("api/task/tid/" + id).then(function(response) {
+        axios.get('api/task/tid/' + id).then(function(response) {
             self.taskSelect = response.data;
             self.taskSelect.id = id;
             self.setState({taskSelect: response.data, open: true})
@@ -88,7 +89,7 @@ export default class ProgrammerTask extends React.Component {
         var self = this;
     }
     handleStart(task) {
-        if (task.started_on == null || task.started_on == undefined || task.started_on == "") {
+        if (task.started_on == null || task.started_on == undefined || task.started_on == '') {
             var taskSelect = {
                 started_on: new Date()
             }
@@ -99,7 +100,7 @@ export default class ProgrammerTask extends React.Component {
         }
 
         var self = this;
-        axios.put("api/task/update/" + task.task_id, taskSelect).then(function(response) {
+        axios.put('api/task/update/' + task.task_id, taskSelect).then(function(response) {
             self.setState({taskSelect: taskSelect});
             self.loadtaskAll();
         }).catch(function(error) {
@@ -114,7 +115,7 @@ export default class ProgrammerTask extends React.Component {
     loadtaskAll() {
         var retrievUser = JSON.parse(localStorage.getItem('localStore'));
         var self = this
-        axios.get("api/taskP/" + retrievUser.user_name).then(function(response) {
+        axios.get('api/taskP/' + retrievUser.user_name).then(function(response) {
             self.setState({taskList: response.data})
         }).catch(function(error) {
             console.log(error);
@@ -148,25 +149,25 @@ export default class ProgrammerTask extends React.Component {
                             {this.state.taskList.map((task) => {
                                 return <ListItem key={task.task_id}
                                           leftAvatar={< Avatar icon = { < ActionAssignment />  }  backgroundColor = {"#2196F3"}/>}
-                                          rightIcon={<RaisedButton disabled ={task.completed_on == undefined || null || ""
+                                          rightIcon={<RaisedButton style={{margin: 38,float : 'left'}} disabled ={task.completed_on == undefined || null || ''
                                               ? false
-                                              : true} label={task.started_on == undefined || null || ""
-                                              ? "start"
-                                              : "finish"} backgroundColor="#26a69a" onTouchTap={this.handleStart.bind(this, task)}/>}
+                                              : true} label={task.started_on == undefined || null || ''
+                                              ? 'start'
+                                              : 'finish'} backgroundColor="#26a69a" onTouchTap={this.handleStart.bind(this, task)}/>}
                                            >
                                            <label style={{fontWeight: 'bold', color: '#006064' , fontSize:25}}>{task.task_name}</label>
                                            <div style={styles.wrapper}>
                                               <Chip backgroundColor="#00bcd4"  style={styles.chip}>Alloted Time : {task.estimated_time} hours
                                               </Chip>
                                               <Chip backgroundColor="#26a69a"  style={styles.chip}>Started : {task.started_on != null
-                                                ? dateFormat(new Date(task.started_on), "dddd, mmmm dS, yyyy, h:MM:ss TT")
-                                                : "Not Started"}
+                                                ? dateFormat(new Date(task.started_on), 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+                                                : 'Not Started'}
                                               </Chip>
                                               <Chip backgroundColor="#f48fb1"  style={styles.chip}>Completed : {task.completed_on != null
-                                                ? dateFormat(new Date(task.completed_on), "dddd, mmmm dS, yyyy, h:MM:ss TT")
-                                                : "Not Finished"}
+                                                ? dateFormat(new Date(task.completed_on), 'dddd, mmmm dS, yyyy, h:MM:ss TT')
+                                                : 'Not Finished'}
                                               </Chip>
-                                              <Chip backgroundColor="#a5d6a7"  style={styles.chip}>Completed In : {task.completed_on != null?(Math.abs(new Date(task.completed_on) - new Date(task.started_on)) / 36e5).toFixed(3)+" hours":"Not Started"}
+                                              <Chip backgroundColor="#a5d6a7"  style={styles.chip}>Completed In : {task.completed_on != null?(Math.abs(new Date(task.completed_on) - new Date(task.started_on)) / 36e5).toFixed(3)+' hours':'Not Started'}
                                               </Chip>
                                           </div>
                                 </ListItem>
@@ -199,5 +200,5 @@ var styles = {
     wrapper: {
         display: 'flex',
         flexWrap: 'wrap'
-    }
+    },
 }

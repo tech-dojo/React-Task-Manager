@@ -17,12 +17,12 @@ function loggedIn() {
 }
 function isManager(retrievUser)
 {
-  return retrievUser.user_type==="Manager"
+  return retrievUser.user_type==='Manager'
 }
 
 function isProgrammer(retrievUser)
 {
-  return retrievUser.user_type==="Programmer"
+  return retrievUser.user_type==='Programmer'
 }
 
 function requireAuth(nextState, replace) {

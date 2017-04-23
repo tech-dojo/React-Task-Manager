@@ -31,7 +31,7 @@ export default class ProgrammerModel extends React.Component {
     };
     handleSignOut = () => {
         localStorage.clear();
-        console.log("cleared");
+        console.log('cleared');
     };
 
     render() {
@@ -39,7 +39,7 @@ export default class ProgrammerModel extends React.Component {
             <div>
                 <AppBar title="PROJECT MANAGEMENT"
                   onLeftIconButtonTouchTap={this.handleToggle}
-                  iconElementRight={< Link to = "/userSignin" > < RaisedButton  label = {JSON.parse(localStorage.getItem('localStore')).user_name +"(sign out)"}
+                  iconElementRight={< Link to = "/userSignin" > < RaisedButton  label = {JSON.parse(localStorage.getItem('localStore')).user_name +'(sign out)'}
                 style = {
                     style
                 } /> < /Link>}/>
