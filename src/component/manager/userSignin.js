@@ -41,7 +41,7 @@ export default class UserSignIn extends React.Component {
               browserHistory.push('/')
             }
             else if(response.data.user_type==='Programmer'){
-              browserHistory.push('/programmerModel');
+              browserHistory.push('/programmerView');
             }else{
               console.log('User Name or Password Mismatch');
             }
