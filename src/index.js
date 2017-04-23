@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ManagerView  from './component/manager/managerView.js'
-import ProgrammerModel from './component/programmer/programmerModel'
+import ProgrammerView from './component/programmer/programmerView'
 import ProgrammerTask from './component/programmer/programmerTask.js';
 import TaskList from './component/manager/taskList.js';
 import {browserHistory} from 'react-router';
@@ -66,9 +66,9 @@ const App = () => {
                     <Route path="taskList" component={TaskList}/>
                 </Route>
 
-                <Route path="/programmerModel" component={ProgrammerModel} onEnter={requireAuthBeta}>
+                <Route path="/programmerView" component={ProgrammerView} onEnter={requireAuthBeta}>
                   <IndexRoute component={ProgrammerTask}/>
-                  <Route path="programmerModel" component={ProgrammerTask}/>
+                  <Route path="programmerView" component={ProgrammerTask}/>
                 </Route>
                 <Route path="userSignin" component={UserSignIn}/>
                 <Route path="createUser" component={CreateUser}/>

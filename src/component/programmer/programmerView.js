@@ -14,7 +14,7 @@ const style = {
         float: 'left'
     }
 };
-export default class ProgrammerModel extends React.Component {
+export default class ProgrammerView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -44,7 +44,7 @@ export default class ProgrammerModel extends React.Component {
                     style
                 } /> < /Link>}/>
                 <Drawer docked={false} width={300} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
-                    <Link to="/programmerModel">
+                    <Link to="/programmerView">
                         <MenuItem onTouchTap={this.handleClose}>Task</MenuItem>
                     </Link>
                     <Link to="/userSignin">
