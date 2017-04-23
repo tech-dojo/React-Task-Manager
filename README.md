@@ -36,5 +36,3 @@ $ npm run production
  - Task Search.
  - Stronger User authentication.
 ```
-
-> **Tip:** To make sure mathematical expressions are rendered properly on your website, include **MathJax** into your template:
