@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tech-dojo/react-examples.git"
+    "url": "git+https://github.com/tech-dojo/React-Task-Manager.git"
   },
-  "author": "Shamiul Hoque <shamiul@tech-dojo.org> (shamiulhoque.info)",
+  "author": "TechDojo <info@tech-dojo.org>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tech-dojo/react-examples/issues"
+    "url": "https://github.com/tech-dojo/React-Task-Manager/issues"
   },
-  "homepage": "https://github.com/tech-dojo/react-examples#readme",
+  "homepage": "https://github.com/tech-dojo/React-Task-Manager#readme",
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-eslint": "^4.1.3",
