@@ -1,4 +1,4 @@
-React Task Management is a simple task manager built with react,material-ui,and  nodejs.The project was meant to be used by a small team and very much a work in progress.
+React Task Management is a simple task manager built with React, Material-ui, Sequelize, and Nodejs.The project was meant to be used by a small team and very much a work in progress.
 
 # Features and Functionalities
   - Two types of Users : Managers and Programmers.
@@ -8,15 +8,16 @@ React Task Management is a simple task manager built with react,material-ui,and 
   - The task is recorded with completion time.
 ## Demo 
 [App demo](https://quiet-sea-75197.herokuapp.com/)
-create a manager and a programmer before using.
+Create at least two users, a Manager and a Programmer.
 ### Installation
 
 Install the dependencies and devDependencies and start the server.
 
-Provide the datbase url at config.js.
+Provide the database url at config.js.
 
+For development environments...
 ```sh
-$ git clone link
+$ git clone https://github.com/tech-dojo/React-Task-Manager.git
 $ npm install
 $ npm run development
 ```
@@ -35,4 +36,7 @@ $ npm run production
  - Task ordering by complete/not-completed
  - Task Search.
  - Stronger User authentication.
-```
+License
+----
+
+MIT
