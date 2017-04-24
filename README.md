@@ -1,4 +1,4 @@
-React Task Manager is a simple task manager built with React, Material-UI, Sequelize, and Nodejs. The project was meant for use by a small team and is very much a work in progress.
+React Task Manager is a simple task manager built with React, Material-UI, Sequelize, and Nodejs. The project is meant for use by a small team and is very much a work in progress.
 
 # Features and Functionalities
   - Two types of Users : Managers and Programmers.
