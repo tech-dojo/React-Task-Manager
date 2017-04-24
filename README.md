@@ -39,6 +39,4 @@ $ npm run production
 
 ### License
 
-----
-
 MIT
